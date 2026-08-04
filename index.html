@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>whit — halt fest, wie's dir geht.</title>
+<meta name="description" content="whit ist eine App für Stimmung und Gewohnheiten. Ohne Konto nutzbar, ohne Werbung.">
+<link rel="stylesheet" href="style.css">
 <style>
-  :root {
-    --bg: #EEDCD4; --fg: #231814; --muted: #6B5A52; --rule: rgba(35,24,20,.14);
+  /* Home only: the mark becomes the hero, so it is centred and large. */
+  main.home { max-width: 34rem; text-align: center; padding-top: 12vh; }
+  main.home .logo { width: 96px; height: 96px; margin: 0 auto 2rem; display: block; }
+  main.home h1 { font-size: clamp(3rem, 14vw, 4.6rem); margin: 0 0 .12em; }
+  main.home .lede { font-size: 1.15rem; margin: 0 0 3rem; }
+  main.home nav { display: flex; flex-direction: column; gap: .75rem; }
+  main.home nav a {
+    display: block; padding: 16px 22px; border-radius: 999px;
+    background: var(--card); border: 1px solid var(--card-edge);
+    text-decoration: none; font-weight: 600; box-shadow: var(--shadow);
   }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #0F0C14; --fg: #F3E9E1; --muted: #9A8E92; --rule: rgba(243,233,225,.16); }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; min-height: 100vh; display: grid; place-items: center;
-         padding: 48px 20px; background: var(--bg); color: var(--fg);
-         font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 30rem; text-align: center; }
-  h1 { font-size: 3.2rem; letter-spacing: -.05em; margin: 0 0 .1em; font-weight: 600; }
-  .tagline { color: var(--muted); font-size: 1.05rem; margin: 0 0 3em; }
-  nav { display: flex; flex-direction: column; gap: .75rem; }
-  a { display: block; padding: 14px 20px; border: 1px solid var(--rule);
-      border-radius: 999px; color: inherit; text-decoration: none; font-weight: 500; }
-  a:hover { border-color: var(--fg); }
-  footer { margin-top: 3em; color: var(--muted); font-size: .85rem; }
+  main.home nav a.bold { background: var(--bold-bg); color: var(--bold-fg); border-color: transparent; }
+  main.home footer { justify-content: center; margin-top: 3.5rem; }
 </style>
 </head>
 <body>
-<main>
+<main class="home">
+
+  <svg class="logo" viewBox="0 0 1024 1024" aria-label="whit" role="img">
+    <rect width="1024" height="1024" rx="224" fill="var(--bold-bg)"/>
+    <path d="M 240 380 L 390 720 L 512 380 L 634 720 L 784 380" fill="none"
+          stroke="var(--bold-fg)" stroke-width="100"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
   <h1>whit</h1>
-  <p class="tagline">halt fest, wie's dir geht.</p>
+  <p class="lede">halt fest, wie's dir geht.</p>
+
   <nav>
-    <a href="privacy-de.html">Datenschutzerklärung</a>
-    <a href="privacy.html">Privacy Policy</a>
+    <a class="bold" href="privacy-de.html">Datenschutzerklärung</a>
+    <a href="privacy.html">Privacy Policy (English)</a>
   </nav>
-  <footer>Stimmung und Gewohnheiten, ohne Konto nutzbar.</footer>
+
+  <footer>
+    <span>Stimmung und Gewohnheiten, ohne Konto nutzbar.</span>
+    <a href="mailto:gobi275@proton.me">Kontakt</a>
+  </footer>
+
 </main>
 </body>
 </html>
