@@ -75,7 +75,10 @@ main {
   color: inherit;
   margin-bottom: 2.5rem;
 }
-.mark svg { display: block; width: 30px; height: 30px; }
+/* The mark is the blob from assets/app_icons/whit_mark.svg — the app icon,
+   not a second logo. currentColor lets it flip with the theme: paper on the
+   dark ground, warm ink on the light one. */
+.mark svg { display: block; width: 34px; height: auto; color: var(--bold-bg); }
 .mark span {
   font-family: 'Syne', sans-serif;
   font-weight: 700;

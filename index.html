@@ -7,9 +7,10 @@
 <meta name="description" content="whit ist eine App für Stimmung und Gewohnheiten. Ohne Konto nutzbar, ohne Werbung.">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Home only: the mark becomes the hero, so it is centred and large. */
-  main.home { max-width: 34rem; text-align: center; padding-top: 12vh; }
-  main.home .logo { width: 96px; height: 96px; margin: 0 auto 2rem; display: block; }
+  /* Home only: the blob is the hero, so it is centred and large. */
+  main.home { max-width: 34rem; text-align: center; padding-top: 11vh; }
+  main.home .logo { width: 240px; height: auto; margin: 0 auto 1.25rem; display: block;
+                    color: var(--bold-bg); }
   main.home h1 { font-size: clamp(3rem, 14vw, 4.6rem); margin: 0 0 .12em; }
   main.home .lede { font-size: 1.15rem; margin: 0 0 3rem; }
   main.home nav { display: flex; flex-direction: column; gap: .75rem; }
@@ -25,11 +26,22 @@
 <body>
 <main class="home">
 
-  <svg class="logo" viewBox="0 0 1024 1024" aria-label="whit" role="img">
-    <rect width="1024" height="1024" rx="224" fill="var(--bold-bg)"/>
-    <path d="M 240 380 L 390 720 L 512 380 L 634 720 L 784 380" fill="none"
-          stroke="var(--bold-fg)" stroke-width="100"
-          stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- The halo is three blurred copies of the blob's OWN silhouette in three
+       mood hues (indigo 1, teal 3, orange 6 of the 7-step scale) — the same
+       recipe as mood_halo.dart in the app, kept to a whisper. -->
+  <svg class="logo" viewBox="-150 -150 1000 906" role="img" aria-label="whit">
+    <defs>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="58"/>
+      </filter>
+      <path id="blob" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
+    </defs>
+    <g filter="url(#soft)" opacity=".42">
+      <use href="#blob" x="-80" y="-40" fill="#7068E0"/>
+      <use href="#blob" x="70" y="10" fill="#38C0B8"/>
+      <use href="#blob" x="-10" y="80" fill="#E89838"/>
+    </g>
+    <use href="#blob" fill="currentColor"/>
   </svg>
 
   <h1>whit</h1>
