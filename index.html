@@ -11,7 +11,15 @@
   main.home { max-width: 34rem; text-align: center; padding-top: 11vh; }
   main.home .logo { width: 240px; height: auto; margin: 0 auto 1.25rem; display: block;
                     color: var(--bold-bg); }
-  main.home h1 { font-size: clamp(3rem, 14vw, 4.6rem); margin: 0 0 .12em; }
+  /* The wordmark is wordmark.svg, masked so it follows the theme colour —
+     never live text. See the note in style.css. */
+  main.home h1.wordmark {
+    width: min(64vw, 300px); height: calc(min(64vw, 300px) / 3.208);
+    margin: 0 auto .5rem; background: var(--bold-bg);
+    -webkit-mask: url('wordmark.svg') no-repeat center / contain;
+    mask: url('wordmark.svg') no-repeat center / contain;
+    text-indent: -9999px; overflow: hidden;
+  }
   main.home .lede { font-size: 1.15rem; margin: 0 0 3rem; }
   main.home nav { display: flex; flex-direction: column; gap: .75rem; }
   main.home nav a {
@@ -26,25 +34,11 @@
 <body>
 <main class="home">
 
-  <!-- The halo is three blurred copies of the blob's OWN silhouette in three
-       mood hues (indigo 1, teal 3, orange 6 of the 7-step scale) — the same
-       recipe as mood_halo.dart in the app, kept to a whisper. -->
-  <svg class="logo" viewBox="-150 -150 1000 906" role="img" aria-label="whit">
-    <defs>
-      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
-        <feGaussianBlur stdDeviation="58"/>
-      </filter>
-      <path id="blob" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
-    </defs>
-    <g filter="url(#soft)" opacity=".42">
-      <use href="#blob" x="-80" y="-40" fill="#7068E0"/>
-      <use href="#blob" x="70" y="10" fill="#38C0B8"/>
-      <use href="#blob" x="-10" y="80" fill="#E89838"/>
-    </g>
-    <use href="#blob" fill="currentColor"/>
+  <svg class="logo" viewBox="0 0 700 606" role="img" aria-label="whit">
+    <path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
   </svg>
 
-  <h1>whit</h1>
+  <h1 class="wordmark">whit</h1>
   <p class="lede">halt fest, wie's dir geht.</p>
 
   <nav>

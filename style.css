@@ -79,11 +79,22 @@ main {
    not a second logo. currentColor lets it flip with the theme: paper on the
    dark ground, warm ink on the light one. */
 .mark svg { display: block; width: 34px; height: auto; color: var(--bold-bg); }
+.mark { color: var(--bold-bg); }
+.mark svg + span { margin-top: 2px; }
+/* The wordmark is never live text. wordmark.svg carries Syne's real outlines
+   at wght 700 with the app's -2% tracking (tools/gen_wordmark.py); set as a
+   mask so it still takes its colour from the theme. Live text would drift:
+   a browser that fails to apply the variable weight synthesises a faux bold,
+   which renders visibly wider than the app. */
 .mark span {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: -.03em;
+  display: block;
+  width: calc(34px * 3.208);   /* the SVG's aspect ratio */
+  height: 34px;
+  background: currentColor;
+  -webkit-mask: url('wordmark.svg') no-repeat center / contain;
+  mask: url('wordmark.svg') no-repeat center / contain;
+  text-indent: -9999px;        /* keep the word for screen readers */
+  overflow: hidden;
 }
 
 /* ---- type ----------------------------------------------------------- */
