@@ -78,18 +78,19 @@ main {
 /* The mark is the blob from assets/app_icons/whit_mark.svg — the app icon,
    not a second logo. currentColor lets it flip with the theme: paper on the
    dark ground, warm ink on the light one. */
-.mark svg { display: block; width: 34px; height: auto; color: var(--bold-bg); }
+.mark svg { display: block; width: 24px; height: auto; color: var(--bold-bg); }
 .mark { color: var(--bold-bg); }
 .mark svg + span { margin-top: 2px; }
 /* The wordmark is never live text. wordmark.svg carries Syne's real outlines
-   at wght 700 with the app's -2% tracking (tools/gen_wordmark.py); set as a
-   mask so it still takes its colour from the theme. Live text would drift:
-   a browser that fails to apply the variable weight synthesises a faux bold,
-   which renders visibly wider than the app. */
+   at the weight the APP actually renders — wght 400, see the note in
+   tools/gen_wordmark.py — with the app's -2% tracking. Set as a mask so it
+   still takes its colour from the theme. Live text would drift: a browser that
+   fails to apply the variable weight synthesises a faux bold, which renders
+   visibly wider. */
 .mark span {
   display: block;
-  width: calc(34px * 3.208);   /* the SVG's aspect ratio */
-  height: 34px;
+  width: calc(26px * 2.579);   /* the SVG's aspect ratio */
+  height: 26px;
   background: currentColor;
   -webkit-mask: url('wordmark.svg') no-repeat center / contain;
   mask: url('wordmark.svg') no-repeat center / contain;
@@ -99,13 +100,15 @@ main {
 
 /* ---- type ----------------------------------------------------------- */
 
-/* Syne w700 is reserved for the ONE hero line on a page. Everything
-   subordinate is w600 — see docs/BRAND.md. */
+/* Tracking follows the app: -0.025em from 30px up, -0.02em below
+   (app_theme.dart). Unlike the app, the browser DOES apply the variable weight
+   axis, so headings here are a true w700/w600 while the app currently draws
+   Regular — revisit when the app passes fontVariations. */
 h1 {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: clamp(2.2rem, 7vw, 3.1rem);
-  letter-spacing: -.04em;
+  letter-spacing: -.025em;
   line-height: 1.05;
   margin: 0 0 .35em;
 }
@@ -125,7 +128,7 @@ h3 {
   font-family: 'Syne', sans-serif;
   font-weight: 600;
   font-size: 1.02rem;
-  letter-spacing: -.01em;
+  letter-spacing: -.02em;
   margin: 2rem 0 .5rem;
 }
 
