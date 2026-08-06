@@ -100,13 +100,14 @@ main {
 
 /* ---- type ----------------------------------------------------------- */
 
-/* Tracking follows the app: -0.025em from 30px up, -0.02em below
-   (app_theme.dart). Unlike the app, the browser DOES apply the variable weight
-   axis, so headings here are a true w700/w600 while the app currently draws
-   Regular — revisit when the app passes fontVariations. */
+/* Weight 400 everywhere, deliberately.
+   The app renders Syne at its default instance (see tools/gen_wordmark.py), so
+   Regular IS the brand weight — and the site matches it rather than out-shouting
+   it with a true w600/w700 the app never shows. Hierarchy comes from size and
+   tracking instead: -0.025em from 30px up, -0.02em below (app_theme.dart). */
 h1 {
   font-family: 'Syne', sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   font-size: clamp(2.2rem, 7vw, 3.1rem);
   letter-spacing: -.025em;
   line-height: 1.05;
@@ -115,7 +116,7 @@ h1 {
 
 h2 {
   font-family: 'Syne', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.32rem;
   letter-spacing: -.02em;
   margin: 3.2rem 0 .9rem;
@@ -126,7 +127,7 @@ h2:first-of-type { border-top: 0; padding-top: 0; }
 
 h3 {
   font-family: 'Syne', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.02rem;
   letter-spacing: -.02em;
   margin: 2rem 0 .5rem;
@@ -139,7 +140,7 @@ strong { font-weight: 600; }
 
 .lede {
   font-family: 'Syne', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.06rem;
   color: var(--muted);
   margin: 0 0 .5rem;
@@ -177,7 +178,7 @@ table {
 th {
   text-align: left;
   font-family: 'Syne', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: .8rem;
   letter-spacing: .04em;
   text-transform: uppercase;
