@@ -89,7 +89,7 @@ main {
    visibly wider. */
 .mark span {
   display: block;
-  width: calc(26px * 2.579);   /* the SVG's aspect ratio */
+  width: calc(26px * 2.498);   /* the SVG's aspect ratio */
   height: 26px;
   background: currentColor;
   -webkit-mask: url('wordmark.svg') no-repeat center / contain;
