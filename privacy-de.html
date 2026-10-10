@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datenschutzerklärung — whit</title>
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/legal.css">
+<script>
+  // Same theme as the website (same key), dark unless the visitor chose light.
+  try { document.documentElement.dataset.theme = localStorage.getItem('whit.theme') === 'light' ? 'light' : 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
+<script type="module" src="js/legal.js"></script>
 </head>
 <body>
 <main>
@@ -18,15 +25,15 @@
 
 <h1>Datenschutzerklärung</h1>
 <p class="lede">whit — halt fest, wie's dir geht.</p>
-<p class="meta">Stand: 06.08.2026 · <a href="privacy.html">English version</a></p>
+<p class="meta">Stand: 09.10.2026 · <a href="privacy.html">English version</a></p>
 
 <div class="card">
   <p><strong>Kurz gesagt:</strong> whit funktioniert vollständig offline. Alle
   Einträge liegen ausschließlich auf deinem Gerät, solange du dich nicht
   freiwillig für die Cloud-Synchronisierung anmeldest. Es gibt keine Werbung,
   kein Tracking, keine Weitergabe oder Verkauf von Daten an Dritte — auch nicht
-  in anonymisierter Form. Das Einzige, was whit unabhängig davon sendet, sind
-  technische Absturzberichte, und die kannst du abschalten
+  in anonymisierter Form. Technische Absturzberichte sind aus, solange du sie
+  nicht selbst einschaltest
   (<a href="#absturzberichte">Abschnitt 4</a>).</p>
 </div>
 
@@ -55,27 +62,27 @@ du selbst eingibst:</p>
     <td>Stimmungseinträge („whits"): Bewertung 1–7, Energie-Wert, Zeitstempel,
         Tags, Kontextangaben zu Schlaf und Aktivität</td>
     <td>Kern der App: Verlauf, Auswertungen, Rückblicke</td>
-    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
   </tr>
   <tr>
     <td>Freitext-Notizen zu einzelnen Einträgen</td>
     <td>Persönliche Aufzeichnungen; nur für dich sichtbar</td>
-    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
   </tr>
   <tr>
     <td>Gewohnheiten und deren Erledigungs-Historie</td>
     <td>Habit-Tracking, Streaks, Zusammenhänge mit der Stimmung</td>
-    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
   </tr>
   <tr>
     <td>Vorname (optional, in der Einführung erfragt)</td>
     <td>Nur für die persönliche Begrüßung im Startbildschirm</td>
-    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
   </tr>
   <tr>
     <td>Einstellungen: Sprache, Farbschema, Erinnerungszeiten</td>
     <td>Verhalten der App</td>
-    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
   </tr>
   <tr>
     <td>E-Mail-Adresse — <strong>nur</strong> bei freiwilliger Kontoerstellung</td>
@@ -87,10 +94,9 @@ du selbst eingibst:</p>
 <p><strong>Ohne Konto verlässt kein einziger Eintrag dein Gerät.</strong> Die App
 enthält keine Werbe- oder Tracking-Bibliotheken und wertet nicht aus, wie du sie
 benutzt. Es werden keine Standortdaten, Kontakte, Fotos oder Nutzungsstatistiken
-erhoben. Technische Absturzberichte sind davon ausgenommen: sie werden auch ohne
-Konto übermittelt, enthalten eine app-spezifische Installationskennung und
-lassen sich abschalten — <a href="#absturzberichte">Abschnitt 4</a> erklärt
-genau, was darin steht.</p>
+erhoben. Technische Absturzberichte werden nur übermittelt, wenn du sie
+einschaltest; <a href="#absturzberichte">Abschnitt 4</a> erklärt genau, was
+darin steht.</p>
 
 <h2>3. Cloud-Synchronisierung (optional)</h2>
 <p>Du kannst in den Einstellungen ein kostenloses Konto anlegen, um deine Daten
@@ -98,11 +104,23 @@ zu sichern und auf mehreren Geräten zu nutzen. Erst dann werden Daten übertrag
 Anbieter ist Google Firebase (Firebase Authentication und Cloud Firestore),
 betrieben von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
 Irland, als Auftragsverarbeiter nach Art. 28 DSGVO.</p>
-<p>Deine Daten liegen in einem Bereich, der ausschließlich deiner Konto-Kennung
-zugeordnet ist. Die Zugriffsregeln der Datenbank erlauben Lese- und
-Schreibzugriff ausschließlich dem angemeldeten Konto selbst — kein anderer
-Nutzer und auch nicht der Anbieter der App kann deine Einträge über die
-App-Oberfläche einsehen.</p>
+<p><strong>Alles, was du synchronisierst, ist Ende-zu-Ende-verschlüsselt.</strong>
+Deine Einträge, Notizen, Gewohnheiten, dein Name und deine Einstellungen werden
+auf deinem Gerät verschlüsselt (AES-256-GCM), bevor sie hochgeladen werden — mit
+einem Schlüssel, der deine Geräte nie unverschlüsselt verlässt. Google speichert
+nur unlesbaren Chiffretext; weder Google noch der Entwickler von whit kann deine
+Daten lesen, weder in der Datenbank noch in der Firebase-Konsole. Sichtbar
+bleibt nur Technisches: deine E-Mail-Adresse und Konto-Kennung (für die
+Anmeldung), Dokument-Kennungen und der Zeitpunkt der letzten Änderung.</p>
+<p>Der Schlüssel ist durch einen <strong>Wiederherstellungscode</strong>
+geschützt, den whit dir beim Einrichten einmal anzeigt. Du brauchst ihn, um
+deine Cloud-Kopie auf einem neuen Gerät zu öffnen. Niemand kann ihn für dich
+wiederherstellen: Geht er verloren, lässt sich die Cloud-Kopie nicht mehr
+entschlüsseln. Die Daten auf deinem Gerät sind davon nicht betroffen, und du
+kannst die Cloud-Kopie jederzeit durch sie ersetzen.</p>
+<p>Zusätzlich liegen deine Daten in einem Bereich, der ausschließlich deiner
+Konto-Kennung zugeordnet ist, und die Zugriffsregeln der Datenbank erlauben den
+Zugriff nur dem angemeldeten Konto selbst.</p>
 <p>Eine Übermittlung in Drittländer (insbesondere die USA) kann bei der Nutzung
 von Google-Diensten nicht ausgeschlossen werden. Google ist unter dem
 EU-US Data Privacy Framework zertifiziert; ergänzend gelten die
@@ -113,7 +131,10 @@ die Information, dass du dich bei whit anmeldest. Es gilt zusätzlich die
 
 <h2 id="absturzberichte">4. Absturzberichte</h2>
 <p>Um Fehler zu finden und zu beheben, verwendet whit Firebase Crashlytics
-(Google Ireland Limited, Anschrift wie oben). St&uuml;rzt die App ab, wird ein
+(Google Ireland Limited, Anschrift wie oben) &mdash; <strong>nur, wenn du
+Absturzberichte eingeschaltet hast</strong> unter Einstellungen &rarr;
+Privatsph&auml;re &rarr; <em>Absturzberichte</em>. Der Schalter ist
+standardm&auml;&szlig;ig aus. Ist er an und st&uuml;rzt die App ab, wird ein
 Bericht &uuml;bermittelt, der die technische Ursache enth&auml;lt: die
 Fehlermeldung, die Stelle im Programmcode, die App-Version, das Ger&auml;temodell,
 die Betriebssystemversion sowie eine zuf&auml;llig erzeugte, app-spezifische
@@ -121,18 +142,15 @@ Installationskennung.</p>
 <p>Die Inhalte deiner Eintr&auml;ge &mdash; Stimmungswerte, Notizen, Tags und
 Gewohnheiten &mdash; sind nie Teil eines Absturzberichts. Die Kennung ist nicht
 mit deinem Konto verkn&uuml;pft und wird bei einer Neuinstallation
-zur&uuml;ckgesetzt. Absturzberichte werden unabh&auml;ngig davon erhoben, ob du
-die Cloud-Synchronisierung nutzt.</p>
-<p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) an
-einer stabilen, funktionsf&auml;higen App. Google bewahrt Absturzberichte 90 Tage
-lang auf.</p>
-<p><strong>Du kannst das jederzeit abschalten:</strong> Einstellungen &rarr;
-Privatsph&auml;re &rarr; <em>Absturzberichte</em>. Die Abschaltung wirkt sofort
-und gilt f&uuml;r dieses Ger&auml;t; sie wird nicht mit der Cloud
-synchronisiert, damit ein anderes Ger&auml;t deinen Widerspruch nicht wieder
-aufhebt. Das ist zugleich dein Widerspruchsrecht nach Art. 21 DSGVO &mdash; du
-kannst es alternativ auch &uuml;ber die Kontaktdaten in Abschnitt 1
-aus&uuml;ben.</p>
+zur&uuml;ckgesetzt.</p>
+<p>Rechtsgrundlage ist deine Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, die du
+durch das Einschalten gibst. Google bewahrt Absturzberichte 90 Tage lang
+auf.</p>
+<p><strong>Du kannst die Einwilligung jederzeit widerrufen</strong>, indem du
+den Schalter wieder ausschaltest. Das wirkt sofort, noch nicht gesendete
+Berichte werden vom Ger&auml;t gel&ouml;scht, und die Wahl gilt nur f&uuml;r
+dieses Ger&auml;t &mdash; sie wird nicht synchronisiert, ein anderes Ger&auml;t
+kann sie also weder ein- noch ausschalten.</p>
 
 <h2 id="rechtsgrundlagen">5. Rechtsgrundlagen</h2>
 <ul>
@@ -146,6 +164,9 @@ aus&uuml;ben.</p>
   Befinden können Gesundheitsdaten im Sinne von Art. 9 DSGVO sein. Sie werden
   ausschließlich auf Grundlage deiner ausdrücklichen Einwilligung verarbeitet,
   die in der Nutzung der App und der optionalen Cloud-Sicherung liegt.</li>
+  <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> (Einwilligung) — für
+  Absturzberichte, die du durch Einschalten erteilst und durch Ausschalten
+  widerrufst (<a href="#absturzberichte">Abschnitt 4</a>).</li>
 </ul>
 
 <h2>6. Speicherdauer</h2>

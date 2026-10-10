@@ -1,57 +1,123 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="de" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>whit — halt fest, wie's dir geht.</title>
-<meta name="description" content="whit ist eine App für Stimmung und Gewohnheiten. Ohne Konto nutzbar, ohne Werbung.">
-<link rel="stylesheet" href="style.css">
-<style>
-  /* Home only: the blob is the hero, so it is centred and large. */
-  main.home { max-width: 34rem; text-align: center; padding-top: 11vh; }
-  main.home .logo { width: 168px; height: auto; margin: 0 auto 1.25rem; display: block;
-                    color: var(--bold-bg); }
-  /* The wordmark is wordmark.svg, masked so it follows the theme colour —
-     never live text. See the note in style.css. */
-  main.home h1.wordmark {
-    width: min(62vw, 292px); height: calc(min(62vw, 292px) / 2.498);
-    margin: 0 auto .5rem; background: var(--bold-bg);
-    -webkit-mask: url('wordmark.svg') no-repeat center / contain;
-    mask: url('wordmark.svg') no-repeat center / contain;
-    text-indent: -9999px; overflow: hidden;
-  }
-  main.home .lede { font-size: 1.15rem; margin: 0 0 3rem; }
-  main.home nav { display: flex; flex-direction: column; gap: .75rem; }
-  main.home nav a {
-    display: block; padding: 16px 22px; border-radius: 999px;
-    background: var(--card); border: 1px solid var(--card-edge);
-    text-decoration: none; font-weight: 400; box-shadow: var(--shadow);
-  }
-  main.home nav a.bold { background: var(--bold-bg); color: var(--bold-fg); border-color: transparent; }
-  main.home footer { justify-content: center; margin-top: 3.5rem; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>whit – halt fest, wie's dir geht.</title>
+<meta name="description" content="whit ist eine App für Stimmung und Gewohnheiten. Ohne Konto nutzbar, mit ende-zu-ende verschlüsseltem Sync, kostenlos und werbefrei.">
+<meta name="theme-color" content="#0F0C14">
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/whit.css">
+<script>
+  // Paint the right ground before the first frame so a light-mode visitor never sees a dark flash.
+  try { var q = new URLSearchParams(location.search).get('theme'); if ((q || localStorage.getItem('whit.theme')) === 'light') { document.documentElement.dataset.theme = 'light'; } } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
 </head>
 <body>
-<main class="home">
 
-  <svg class="logo" viewBox="0 0 700 606" role="img" aria-label="whit">
-    <path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
-  </svg>
+<!-- A floating glass island: the brand, where you are in the story, the action. -->
+<header class="site-header glass">
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="whit">
+      <svg class="brand-mark" viewBox="0 0 700 606" aria-hidden="true"><path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/></svg>
+      <span class="wordmark" aria-hidden="true"></span>
+    </a>
+    <div class="chapter" aria-live="polite"><div class="ch-in"><span class="ch-n"></span><span class="ch-t"></span></div><i class="ch-bar"><i></i></i></div>
+    <div class="header-actions">
+      <button class="chip glass lang-toggle wide-only" type="button"><span data-t="langOther"></span></button>
+      <button class="circle glass theme-toggle wide-only" type="button"></button>
+      <a class="btn-bold btn-dense play-link hide-sm" href="#" rel="noopener"><span data-t="playShort"></span></a>
+      <button class="circle glass menu-btn" type="button" data-icon="menu" data-size="18" aria-label="Menu"></button>
+    </div>
+  </div>
+</header>
 
-  <h1 class="wordmark">whit</h1>
-  <p class="lede">halt fest, wie's dir geht.</p>
+<!-- The soft grid behind everything: it drifts slower than the page, its vignette stays put. -->
+<div class="grid-bg" aria-hidden="true"></div>
 
-  <nav>
-    <a class="bold" href="privacy-de.html">Datenschutzerklärung</a>
-    <a href="privacy.html">Privacy Policy (English)</a>
-    <a href="delete.html">Konto und Daten löschen</a>
-  </nav>
+<main id="top">
 
-  <footer>
-    <span>Stimmung und Gewohnheiten, ohne Konto nutzbar.</span>
-    <a href="mailto:gobi275@proton.me">Kontakt</a>
-  </footer>
+  <!-- meet whit. ───────────────────────────────────────────────────── -->
+  <section id="sec-hero" class="hero">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <h1 class="hero-title">
+      <span class="ht ht-l"><span data-t="heroMeet"></span></span>
+      <span class="ht ht-r"><span data-t="heroWhit"></span></span>
+    </h1>
+    <div class="hero-now glass"><i class="now-dot"></i><span class="now-word syne-fb15"></span></div>
+    <div class="hero-foot">
+      <p class="hero-sub display-3" data-t="heroSub"></p>
+      <div class="hero-chips">
+        <span class="fchip glass"><i class="fdot"></i><span data-t="heroChipMood"></span></span>
+        <span class="fchip glass" data-icon="check_circle" data-size="16"><span data-t="heroChipHabits"></span></span>
+        <span class="fchip glass" data-icon="lock" data-size="16"><span data-t="heroChipSync"></span></span>
+        <span class="fchip glass" data-icon="sparkle" data-size="16"><span data-t="heroChipFree"></span></span>
+      </div>
+      <div class="cta-row">
+        <a class="btn-bold btn-prominent play-link" href="#" rel="noopener" data-icon="download" data-size="20"><span data-t="play"></span></a>
+        <a class="btn-quiet btn-prominent" href="#s-journey"><span data-t="heroMore"></span></a>
+      </div>
+    </div>
+    <div class="hero-try"><span class="hint-dot"></span><span data-t="heroTryTouch"></span></div>
+    <div class="scroll-cue" aria-hidden="true"><i></i><span data-t="scroll"></span></div>
+  </section>
 
+  <!-- 01–03 · one whit: check in, context, sealed ─────────────────── -->
+  <section id="s-journey" class="scene lay-l"><div class="stage"></div></section>
+
+  <!-- 04 · patterns ─────────────────────────────────────────────────── -->
+  <section id="s-patterns" class="scene lay-r"><div class="stage"></div></section>
+
+  <!-- 05 · habits ───────────────────────────────────────────────────── -->
+  <section id="s-habits" class="scene lay-c"><div class="stage"></div></section>
+
+  <!-- 06 · for everyone: the page turns over ─────────────────────────── -->
+  <section id="s-free" class="scene scene-free"><div class="stage"></div></section>
+
+  <!-- get it: the opening move, once more ──────────────────────────── -->
+  <section id="sec-cta" class="hero cta-hero">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <h2 class="hero-title">
+      <span class="ht ht-l"><span data-t="ctaL"></span></span>
+      <span class="ht ht-r"><span data-t="ctaR"></span></span>
+    </h2>
+    <div class="hero-foot">
+      <p class="hero-sub display-3" data-t="ctaP"></p>
+      <div class="cta-row">
+        <a class="btn-bold btn-hero play-link" href="#" rel="noopener" data-icon="download" data-size="20"><span data-t="play"></span></a>
+      </div>
+    </div>
+  </section>
 </main>
+
+<!-- Phones: the app's floating glass bar, carrying the one action. -->
+<nav class="dock glass" aria-label="whit">
+  <svg class="brand-mark" viewBox="0 0 700 606" aria-hidden="true"><path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/></svg>
+  <span class="dock-word syne-fb17">whit</span>
+  <a class="btn-bold btn-dense play-link" href="#" rel="noopener" data-icon="download" data-size="18"><span data-t="playShort"></span></a>
+</nav>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <svg class="brand-mark" viewBox="0 0 700 606" aria-hidden="true"><path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/></svg>
+      <span data-t="personal"></span>
+    </div>
+    <nav class="footer-links">
+      <a data-href="privacyHref" data-t="privacy" href="#"></a>
+      <a href="delete.html" data-t="del"></a>
+      <a href="mailto:gobi275@proton.me" data-t="contact"></a>
+    </nav>
+    <p class="disclaimer" data-t="disclaimer"></p>
+  </div>
+</footer>
+
+<button class="to-top glass" type="button" data-icon="arrow_up" data-size="20" aria-label="Back to top"></button>
+
+<div class="cursor" aria-hidden="true"><div class="cur-dot"></div><div class="cur-label glass"></div></div>
+
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

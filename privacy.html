@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — whit</title>
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/legal.css">
+<script>
+  // Same theme as the website (same key), dark unless the visitor chose light.
+  try { document.documentElement.dataset.theme = localStorage.getItem('whit.theme') === 'light' ? 'light' : 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
+<script type="module" src="js/legal.js"></script>
 </head>
 <body>
 <main>
@@ -18,14 +25,14 @@
 
 <h1>Privacy Policy</h1>
 <p class="lede">whit — log how you feel.</p>
-<p class="meta">Last updated: 06.08.2026 · <a href="privacy-de.html">Deutsche Fassung</a></p>
+<p class="meta">Last updated: 09.10.2026 · <a href="privacy-de.html">Deutsche Fassung</a></p>
 
 <div class="card">
   <p><strong>In short:</strong> whit works fully offline. Everything you write
   stays on your device unless you voluntarily sign in for cloud sync. There are
   no ads, no tracking, and nothing is ever sold or shared with third parties —
-  not even in aggregated or anonymised form. The only thing whit sends
-  regardless is a technical crash report, and you can switch that off
+  not even in aggregated or anonymised form. Technical crash reports are off
+  unless you switch them on yourself
   (<a href="#crash-reports">section 4</a>).</p>
 </div>
 
@@ -54,27 +61,27 @@ enter yourself:</p>
     <td>Mood entries ("whits"): a 1–7 rating, an energy value, a timestamp, tags,
         and context about sleep and activity</td>
     <td>The core of the app: history, insights, reviews</td>
-    <td>On your device only; also in the cloud if you have an account</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
   </tr>
   <tr>
     <td>Free-text notes attached to entries</td>
     <td>Your personal journal; visible only to you</td>
-    <td>On your device only; also in the cloud if you have an account</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
   </tr>
   <tr>
     <td>Habits and their completion history</td>
     <td>Habit tracking, streaks, correlation with mood</td>
-    <td>On your device only; also in the cloud if you have an account</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
   </tr>
   <tr>
     <td>First name (optional, asked during onboarding)</td>
     <td>Only to greet you on the home screen</td>
-    <td>On your device only; also in the cloud if you have an account</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
   </tr>
   <tr>
     <td>Settings: language, colour theme, reminder times</td>
     <td>How the app behaves</td>
-    <td>On your device only; also in the cloud if you have an account</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
   </tr>
   <tr>
     <td>Email address — <strong>only</strong> if you choose to create an account</td>
@@ -86,8 +93,7 @@ enter yourself:</p>
 <p><strong>Without an account, not a single entry leaves your device.</strong> The
 app contains no advertising or tracking libraries and does not measure how you
 use it. It collects no location, contacts, photos or usage statistics. Technical
-crash reports are the exception: they are sent even without an account, they
-carry an app-specific installation identifier, and they can be switched off —
+crash reports are sent only if you switch them on;
 <a href="#crash-reports">section 4</a> spells out exactly what they contain.</p>
 
 <h2>3. Cloud sync (optional)</h2>
@@ -96,10 +102,21 @@ on more than one device. Nothing is transmitted before you do. The provider is
 Google Firebase (Firebase Authentication and Cloud Firestore), operated by
 Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, acting
 as a processor under Art. 28 GDPR.</p>
-<p>Your data is stored in an area scoped exclusively to your account identifier.
-The database security rules permit read and write access only to the signed-in
-account itself — no other user, and no operator of the app, can view your entries
-through the application.</p>
+<p><strong>Everything you sync is end-to-end encrypted.</strong> Your entries,
+notes, habits, name and settings are encrypted on your device (AES-256-GCM)
+before they are uploaded, with a key that never leaves your devices unencrypted.
+Google stores only unreadable ciphertext, and neither Google nor the developer
+of whit can read your data — not in the database, not in the Firebase console.
+What remains visible is technical: your email address and account ID (needed to
+sign in), document IDs and the time each document was last changed.</p>
+<p>The key is protected by a <strong>recovery code</strong> that whit shows you
+once when you set up sync. You need it to open your cloud copy on a new device.
+Nobody can restore it for you: if you lose it, the cloud copy can no longer be
+decrypted. The data on your device is not affected, and you can replace the
+cloud copy with it at any time.</p>
+<p>In addition, your data is stored in an area scoped exclusively to your
+account identifier, and the database security rules permit access only to the
+signed-in account itself.</p>
 <p>Transfers to third countries (in particular the USA) cannot be ruled out when
 using Google services. Google is certified under the EU-US Data Privacy
 Framework; the European Commission's Standard Contractual Clauses apply in
@@ -111,22 +128,22 @@ additionally.</p>
 
 <h2 id="crash-reports">4. Crash reports</h2>
 <p>To find and fix errors, whit uses Firebase Crashlytics (Google Ireland
-Limited, address as above). If the app crashes, a report is transmitted
+Limited, address as above) &mdash; <strong>only if you have switched crash
+reports on</strong> under Settings &rarr; Privacy &rarr; <em>Crash reports</em>.
+The switch is off by default. With it on, if the app crashes, a report is
+transmitted
 containing the technical cause: the error message, the position in the program
 code, the app version, the device model, the operating system version and a
 randomly generated, app-specific installation identifier.</p>
 <p>The contents of your entries &mdash; mood values, notes, tags and habits
 &mdash; are never part of a crash report. The identifier is not linked to your
-account and is reset when the app is reinstalled. Crash reports are collected
-whether or not you use cloud sync.</p>
-<p>Legal basis is Art. 6(1)(f) GDPR (legitimate interest) in a stable, working
-app. Google retains crash reports for 90 days.</p>
-<p><strong>You can switch this off at any time:</strong> Settings &rarr; Privacy
-&rarr; <em>Crash reports</em>. It takes effect immediately and applies to this
-device; the choice is not synced to the cloud, so another device cannot undo
-your objection. This is also how you exercise your right to object under
-Art. 21 GDPR &mdash; you may alternatively use the contact details in
-section 1.</p>
+account and is reset when the app is reinstalled.</p>
+<p>Legal basis is your consent, Art. 6(1)(a) GDPR, given by switching crash
+reports on. Google retains crash reports for 90 days.</p>
+<p><strong>You can withdraw your consent at any time</strong> by switching it
+off again. It takes effect immediately, crash reports not yet sent are deleted
+from the device, and the choice applies to this device only &mdash; it is not
+synced, so another device can neither switch it on nor off for you.</p>
 
 <h2 id="legal-bases">5. Legal bases</h2>
 <ul>
@@ -139,6 +156,9 @@ section 1.</p>
   wellbeing may constitute health data under Art. 9 GDPR. It is processed solely
   on the basis of your explicit consent, given by using the app and its optional
   cloud backup.</li>
+  <li><strong>Art. 6(1)(a) GDPR</strong> (consent) — for crash reports, which
+  you give by switching them on and can withdraw by switching them off
+  (<a href="#crash-reports">section 4</a>).</li>
 </ul>
 
 <h2>6. Retention</h2>

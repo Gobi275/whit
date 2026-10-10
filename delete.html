@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Konto und Daten löschen — whit</title>
 <meta name="description" content="Wie du dein whit-Konto und alle zugehörigen Daten löschst — in der App oder per E-Mail.">
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/legal.css">
+<script>
+  // Same theme as the website (same key), dark unless the visitor chose light.
+  try { document.documentElement.dataset.theme = localStorage.getItem('whit.theme') === 'light' ? 'light' : 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
+<script type="module" src="js/legal.js"></script>
 </head>
 <body>
 <main>
@@ -19,7 +26,7 @@
 
 <h1>Konto und Daten löschen</h1>
 <p class="lede">whit — App von Leopold Wolpert</p>
-<p class="meta">Stand: 06.08.2026 · <a href="#english">In English</a> · <a href="privacy-de.html">Datenschutzerklärung</a></p>
+<p class="meta">Stand: 09.10.2026 · <a href="#english">In English</a> · <a href="privacy-de.html">Datenschutzerklärung</a></p>
 
 <div class="card">
   <p><strong>Kurz gesagt:</strong> Ein whit-Konto ist freiwillig — die App
@@ -32,10 +39,11 @@
 
 <h2>Weg 1: in der App (sofort)</h2>
 <ol>
-  <li>whit öffnen und <strong>Einstellungen</strong> aufrufen.</li>
-  <li>Im Bereich <strong>Cloud-Backup</strong> auf <strong>Konto löschen</strong>
-  tippen.</li>
-  <li>Die Rückfrage <em>„Konto löschen?"</em> bestätigen.</li>
+  <li>whit öffnen und auf dem Startbildschirm oben rechts auf das
+  <strong>Personen-Symbol</strong> tippen.</li>
+  <li>Unten auf <strong>Konto löschen</strong> tippen.</li>
+  <li>Die Rückfrage <em>„Konto löschen?"</em> bestätigen — mit deinem Passwort,
+  oder bei einem Google-Konto durch Gedrückthalten des Knopfs.</li>
 </ol>
 <p>Das Konto und alle zugehörigen Daten in der Cloud werden dabei sofort und
 endgültig gelöscht. Es gibt keine Wartefrist und keine Wiederherstellung.</p>
@@ -112,8 +120,9 @@ schneller.</p>
 <h2 id="english">In English</h2>
 <p><strong>Deleting your whit account and its data.</strong> An account is
 optional in whit — the app works without one.</p>
-<p><strong>In the app:</strong> Settings → <em>Cloud backup</em> →
-<strong>Delete account</strong>, then confirm. The account and everything
+<p><strong>In the app:</strong> on the home screen, tap the
+<strong>person icon</strong> (top right) → <strong>Delete account</strong>, then
+confirm with your password (or, for a Google account, by holding the button). The account and everything
 stored in the cloud is deleted immediately and permanently.</p>
 <p><strong>Without the app installed:</strong> email
 <a href="mailto:gobi275@proton.me?subject=Delete%20account">gobi275@proton.me</a>
