@@ -39,6 +39,22 @@ export class Free {
   /** How much of the screen the inverted panel covers (0..1). */
   get cover() { return this.k; }
 
+  /** The chapter scrolled out of view: nothing of it is on screen any more. */
+  hide() { this.k = 0; this.clip = null; }
+
+  /** Is the viewport point (x, y) inside the inverted panel right now —
+   *  inside its rounded corners too? */
+  covers(x, y) {
+    const c = this.clip;
+    if (!c) return false;
+    const l = c.iw, t = c.ih, r = innerWidth - c.iw, b = innerHeight - c.ih;
+    if (x < l || x > r || y < t || y > b) return false;
+    const R = Math.min(c.r, (r - l) / 2, (b - t) / 2);
+    const cx = x < l + R ? l + R : x > r - R ? r - R : x;
+    const cy = y < t + R ? t + R : y > b - R ? b - R : y;
+    return (x - cx) ** 2 + (y - cy) ** 2 <= R * R;
+  }
+
   update(s, { H, mobile, t, dt = 0.016, enter, leave }) {
     const E = this.el;
     // A pill (h/2 radius) that grows into the full screen, and back.
@@ -53,7 +69,9 @@ export class Free {
     // Always round: a pill (radius = half the short side) for most of the way,
     // the corners only opening up in the last stretch before full screen.
     const short = Math.min(vw - 2 * iw, vh - 2 * ih);
-    E.panel.style.clipPath = `inset(${ih.toFixed(1)}px ${iw.toFixed(1)}px round ${((short / 2) * (1 - seg(k, 0.7, 1))).toFixed(1)}px)`;
+    const rad = (short / 2) * (1 - seg(k, 0.7, 1));
+    this.clip = k > 0.001 ? { iw, ih, r: rad } : null;
+    E.panel.style.clipPath = `inset(${ih.toFixed(1)}px ${iw.toFixed(1)}px round ${rad.toFixed(1)}px)`;
     E.words.forEach((el, i) => place(el, WORDS[i](s, mobile), H, 1));
     E.cards.forEach((el, i) => {
       // A steady, unbroken drift through the card's window — no hold, no steps.

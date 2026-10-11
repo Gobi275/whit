@@ -274,10 +274,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
 .menu-btn { display: none; }
 /* Over the inverted chapter the glass takes that chapter's theme. */
-:root:not([data-theme="light"]) .site-header.over-inv { --ink: #231814; --ink-2: #5E504B; --muted: #5E504B; --ink-12: rgba(35,24,20,.12);
+:root:not([data-theme="light"]) :is(.site-header, .to-top).over-inv { --ink: #231814; --ink-2: #5E504B; --muted: #5E504B; --ink-12: rgba(35,24,20,.12);
   --glass-rgb: 40,23,15; --veil: rgba(40,23,15,.035); --chip: rgba(40,23,15,.055); --bold: #231814; --on-bold: #F3E7E1;
   --rim-sub-p: .18; --rim-sub-d: .03; --rim-w: 1px; --header-shadow: rgba(41,24,17,.10); }
-:root[data-theme="light"] .site-header.over-inv { --ink: #F3E7E1; --ink-2: #9B97A3; --muted: #9B97A3; --ink-12: rgba(243,231,225,.14);
+:root[data-theme="light"] :is(.site-header, .to-top).over-inv { --ink: #F3E7E1; --ink-2: #9B97A3; --muted: #9B97A3; --ink-12: rgba(243,231,225,.14);
   --glass-rgb: 227,222,237; --veil: rgba(227,222,237,.05); --chip: rgba(227,222,237,.10); --bold: #F3E7E1; --on-bold: #231814;
   --rim-sub-p: .40; --rim-sub-d: .06; --rim-w: .8px; --header-shadow: rgba(0,0,0,.22); }
 

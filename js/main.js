@@ -184,7 +184,12 @@ function frame(now) {
     if (sc.visible) sc.updateFn(sc.s, { H, mobile, mx: MX, dt, t, enter: sc.enter, leave: sc.leave, px, py });
     if (y >= sc.top - vh * 0.5 && y < sc.top + sc.len + vh * 0.5) ch = sc.chapter();
   }
-  inv = free.cover > 0.55;
+  // Invert exactly where the inverted panel lies under the control — and only
+  // while that chapter is on screen at all (scrolled away, it holds no area).
+  if (!scenes[3].visible) free.hide();
+  const hb = header.getBoundingClientRect(), tb = toTop.getBoundingClientRect();
+  inv = free.covers(hb.left + hb.width / 2, hb.top + hb.height / 2);
+  toTop.classList.toggle('over-inv', free.covers(tb.left + tb.width / 2, tb.top + tb.height / 2));
   setChapter(ch);
   const first = scenes[0], lastSc = scenes[scenes.length - 1];
   chBar.style.transform = `scaleX(${clamp((y - first.top) / (lastSc.top + lastSc.len - first.top), 0, 1).toFixed(4)})`;
