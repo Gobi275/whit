@@ -200,8 +200,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 @media (max-width: 720px) {
   .ht { left: 0; right: 0; text-align: center; transform: none; }
-  .ht-l { top: calc(var(--blob) * -.56 - .8em); }
-  .ht-r { top: calc(var(--blob) * .56 - .1em); }
+  /* The words tuck further behind the drop, so the stack breathes. */
+  .ht-l { top: calc(var(--blob) * -.44 - .8em); }
+  .ht-r { top: calc(var(--blob) * .42 - .1em); }
   .ht-l > span { transform: translateY(calc(var(--blob) * .45)); }
   .ht-r > span { transform: translateY(calc(var(--blob) * -.45)); }
   .hero.on .ht-l > span { transform: translateY(calc(var(--sk) * -14vh)); }
@@ -306,7 +307,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font: 600 13px/1 var(--body); letter-spacing: .1px; -webkit-backdrop-filter: blur(22px) saturate(1.1); backdrop-filter: blur(22px) saturate(1.1); }
 .fchip .ic { width: 16px; height: 16px; }
 .fdot { width: 12px; height: 12px; border-radius: 50%; flex: none; background: linear-gradient(135deg, var(--fd1), var(--fd2)); }
-.hero-try { display: none; top: calc(64px + 30px); left: 0; right: 0; justify-content: center; }
+.hero-try { display: none; top: calc(64px + 16px); left: 0; right: 0; justify-content: center; }
 @media (hover: none) { .hero-try { display: inline-flex; } }
 .hint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); animation: pulse 1.8s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1); } }
@@ -324,7 +325,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .st-viz { position: absolute; inset: 0; pointer-events: none; --in: 1; --out: 0;
   opacity: calc(min(1, var(--in) * 1.6 - .3) * (1 - var(--out) * 1.4));
   transform: translateY(calc(var(--out) * -6vh)) scale(calc(.93 + .07 * min(1, var(--in) * 1.4) - .05 * var(--out))); }
-.anchor { position: absolute; left: 50%; top: 45%; width: 0; height: 0; }
+.anchor { position: absolute; left: 50%; top: var(--ay, 45%); width: 0; height: 0; }
 .fl { position: absolute; left: 0; top: 0; will-change: transform; }
 
 /* Title cards: big, centred, alone; the words arrive out of a blur. */
@@ -701,8 +702,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-width: 859px) {
   :root { --padx: 10px; }
   .st-title { font-size: clamp(40px, 11.5vw, 72px); }
-  :root { --rail-y: 42%; }
-  .anchor, .st-title { top: 42%; }
+  :root { --rail-y: var(--ay, 42%); }
+  .anchor, .st-title { top: var(--ay, 42%); }
   .st-cap { bottom: 62px; width: calc(100% - 40px); }
   .st-t { font-size: 30px; margin-bottom: 8px; }
   .st-p { font-size: 16px; line-height: 1.45; }

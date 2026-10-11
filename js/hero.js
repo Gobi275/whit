@@ -47,7 +47,7 @@ export class Hero {
     // The halo is all blur — render it at a quarter resolution and scale up.
     this.halo.width = Math.ceil(W / 4); this.halo.height = Math.ceil(H / 4);
     const mobile = W < 720;
-    this.size = mobile ? Math.min(W * 0.56, H * 0.28) : Math.min(H * 0.44, W * 0.3, 500);
+    this.size = mobile ? Math.min(W * 0.5, H * 0.25) : Math.min(H * 0.44, W * 0.3, 500);
     this.cx = W / 2;
     // Phones: the drop sits higher, so "whit." has room to drift before the text below.
     this.cy = mobile ? H * 0.33 : H * 0.43;

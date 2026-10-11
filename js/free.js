@@ -39,11 +39,14 @@ export class Free {
   /** How much of the screen the inverted panel covers (0..1). */
   get cover() { return this.k; }
 
-  update(s, { H, mobile, t, enter, leave }) {
+  update(s, { H, mobile, t, dt = 0.016, enter, leave }) {
     const E = this.el;
     // A pill (h/2 radius) that grows into the full screen, and back.
-    const k = clamp(seg(enter, 0.35, 1) * (1 - seg(leave, 0, 0.6)), 0, 1);
-    this.k = k;
+    // Damped: the wheel moves scroll in big jumps, the shape must not.
+    const target = clamp(seg(enter, 0.35, 1) * (1 - seg(leave, 0, 0.6)), 0, 1);
+    this.k += (target - this.k) * (1 - Math.exp(-dt * 9));
+    if (Math.abs(target - this.k) < 0.0005) this.k = target;
+    const k = this.k;
     const vw = innerWidth, vh = innerHeight;
     const pw = Math.min(vw * 0.6, 460), ph = 120;
     const iw = ((1 - k) * (vw - pw)) / 2, ih = ((1 - k) * (vh - ph)) / 2;
@@ -56,7 +59,11 @@ export class Free {
       // A steady, unbroken drift through the card's window — no hold, no steps.
       const p = clamp((s - (i - 0.15)) / 1.2, 0, 1);
       const o = Math.min(seg(p, 0, 0.3), 1 - seg(p, 0.78, 1));
-      place(el, { x: 0, y: (mobile ? 0.22 : 0.25) - p * (mobile ? 0.05 : 0.14) + Math.sin(t * 1.1 + i) * 0.006, s: 0.97 + 0.03 * o, o, rx: 0, ry: 0, rz: 0, b: (1 - o) * 10, z: 1 }, H, 1);
+      // The card's top edge sits a little over the word's lower part — measured, so
+      // the overlap is the same slight one on every screen.
+      const wh = E.words[i].offsetHeight, ch = el.offsetHeight;
+      const y0 = (wh * (mobile ? 0.46 : 0.3) + ch / 2) / H;
+      place(el, { x: 0, y: y0 - p * 0.04 + Math.sin(t * 1.1 + i) * 0.006, s: 0.97 + 0.03 * o, o, rx: 0, ry: 0, rz: 0, b: (1 - o) * 10, z: 1 }, H, 1);
     });
     const act = clamp(Math.floor(s + 0.1), 0, 2);
     E.dots.forEach((el, i) => { el.classList.toggle('on', i === act); el.classList.toggle('past', i < act); });

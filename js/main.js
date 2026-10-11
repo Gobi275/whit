@@ -108,7 +108,12 @@ function layout() {
   // can be taller. Narrower: centred, with room for one caption beneath it.
   const wide = vw >= 1100;
   document.documentElement.classList.toggle('wide', wide);
-  H = mobile ? Math.min(vh * 0.58, vw * 1.3) : wide ? Math.min(vh * 0.74, vw * 0.42, 720) : Math.min(vh * 0.6, vw * 0.5, 640);
+  // Centred layouts: the object fills the space between the header and a
+  // fixed caption zone at the bottom, with a clear gap to the caption.
+  const TOP = 78, CAP = mobile ? 250 : 210;
+  H = wide ? Math.min(vh * 0.74, vw * 0.42, 720) : Math.min((vh - TOP - CAP) / 1.1, mobile ? vw * 1.25 : vw * 0.5, 640);
+  const ay = wide ? vh * 0.5 : TOP + (H * 1.1) / 2;
+  document.documentElement.style.setProperty('--ay', ay.toFixed(1) + 'px');
   // Sideways reach of the lifted pieces: full on wide screens, tighter as the columns close in.
   MX = mobile ? 0.55 : clamp(vw / 1440, 0.72, 1);
   document.documentElement.style.setProperty('--H', H.toFixed(1) + 'px');
