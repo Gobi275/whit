@@ -33,6 +33,7 @@ export class Hero {
     section.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') move(e.clientX, e.clientY); });
     section.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') move(e.clientX, e.clientY); });
     new ResizeObserver(() => this.layout()).observe(section);
+    document.fonts?.ready.then(() => this.layout());
     this.layout();
     requestAnimationFrame((t) => this.tick(t));
   }
@@ -51,6 +52,18 @@ export class Hero {
     this.cx = W / 2;
     // Phones: the drop sits higher, so "whit." has room to drift before the text below.
     this.cy = mobile ? H * 0.33 : H * 0.43;
+    if (!mobile) {
+      // Flat windows: fit the drop (and the mood pill under it) into the space
+      // that is actually free between the header and the text block below.
+      const foot = s.querySelector('.hero-foot');
+      if (foot) {
+        const footTop = H - foot.offsetHeight - (parseFloat(getComputedStyle(foot).bottom) || 0);
+        const top = 84, below = 74;               // header · pill + breathing room
+        const avail = footTop - top;
+        this.size = Math.max(150, Math.min(this.size, avail - below));
+        this.cy = Math.min(this.cy, top + (avail - this.size - below) / 2 + this.size / 2);
+      }
+    }
     s.style.setProperty('--blob', this.size + 'px');
     s.style.setProperty('--cy', this.cy + 'px');
   }

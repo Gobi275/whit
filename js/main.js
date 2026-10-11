@@ -110,10 +110,17 @@ function layout() {
   document.documentElement.classList.toggle('wide', wide);
   // Centred layouts: the object fills the space between the header and a
   // fixed caption zone at the bottom, with a clear gap to the caption.
-  const TOP = 78, CAP = mobile ? 250 : 210;
-  H = wide ? Math.min(vh * 0.74, vw * 0.42, 720) : Math.min((vh - TOP - CAP) / 1.1, mobile ? vw * 1.25 : vw * 0.5, 640);
-  const ay = wide ? vh * 0.5 : TOP + (H * 1.1) / 2;
+  // Object + gap + caption are ONE group, centred in the space under the
+  // header: tall windows don't strand the caption at the bottom, flat ones
+  // shrink the object before anything is cut.
+  const TOP = 78, GAP = mobile ? 22 : 28, CAP = mobile ? 150 : 118, BOT = mobile ? 58 : 24;
+  const wideH = Math.min(vh * 0.74, (vh - TOP - 16) / 1.08, vw * 0.42, 720);
+  H = wide ? wideH : Math.max(220, Math.min((vh - TOP - GAP - CAP - BOT) / 1.1, mobile ? vw * 1.25 : vw * 0.5, 640));
+  const group = H * 1.1 + GAP + CAP;
+  const top = TOP + Math.max(0, (vh - TOP - BOT - group) / 2);
+  const ay = wide ? TOP + (vh - TOP) / 2 : top + (H * 1.1) / 2;
   document.documentElement.style.setProperty('--ay', ay.toFixed(1) + 'px');
+  document.documentElement.style.setProperty('--cap-top', (top + H * 1.1 + GAP).toFixed(1) + 'px');
   // Sideways reach of the lifted pieces: full on wide screens, tighter as the columns close in.
   MX = mobile ? 0.55 : clamp(vw / 1440, 0.72, 1);
   document.documentElement.style.setProperty('--H', H.toFixed(1) + 'px');

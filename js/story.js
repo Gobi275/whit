@@ -70,7 +70,13 @@ export function place(el, v, H, mx = 1) {
   if (el.dataset.sq != null) el.style.setProperty('--o', v.o.toFixed(3));
   else el.style.opacity = v.o.toFixed(3);
   el.style.visibility = v.o < 0.005 ? 'hidden' : '';
-  el.style.filter = v.b > 0.05 ? `blur(${v.b.toFixed(1)}px)` : '';
+  // Never a filter on a glass element (or an ancestor of glass): it makes the
+  // element a backdrop root and the glass inside stops blurring — in Chrome
+  // for as long as the fade lasts, in Gecko outright. Glass elements get the
+  // blur as --bf, which only their CONTENT layers use.
+  const blur = v.b > 0.05 ? `blur(${v.b.toFixed(1)}px)` : '';
+  if (el.dataset.sq != null) el.style.setProperty('--bf', blur || 'none');
+  else el.style.filter = blur;
   el.style.setProperty('--lift', v.z.toFixed(3));
 }
 

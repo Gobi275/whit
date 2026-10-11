@@ -322,9 +322,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ── Scenes: a tall section, one pinned stage, everything centred ─────── */
 .scene { position: relative; height: calc(var(--steps, 3) * 80svh + 100svh); }
 .stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
-.st-viz { position: absolute; inset: 0; pointer-events: none; --in: 1; --out: 0;
-  opacity: calc(min(1, var(--in) * 1.6 - .3) * (1 - var(--out) * 1.4));
-  transform: translateY(calc(var(--out) * -6vh)) scale(calc(.93 + .07 * min(1, var(--in) * 1.4) - .05 * var(--out))); }
+/* No opacity, filter or transform here: this wraps every glass surface of a
+   scene, and any of those would make it a backdrop root (glass inside stops
+   blurring). Objects fade themselves, glass via --o on its own layers. */
+.st-viz { position: absolute; inset: 0; pointer-events: none; }
+[data-sq] > .sq-body, .phone > .ph-screen { filter: var(--bf, none); }
 .anchor { position: absolute; left: 50%; top: var(--ay, 45%); width: 0; height: 0; }
 .fl { position: absolute; left: 0; top: 0; will-change: transform; }
 
@@ -336,7 +338,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* Captions centred beneath the object; the progress as slim vertical pills. */
 .st-steps { position: absolute; z-index: 3; inset: 0; pointer-events: none; }
-.st-cap { position: absolute; left: 50%; bottom: max(26px, 4.5vh); width: min(640px, 86vw); transform: translateX(-50%); text-align: center; }
+/* Centred layouts: the caption follows the object (top set by main.js), so a
+   tall or a flat window never leaves a gap or cuts it off. */
+.st-cap { position: absolute; left: 50%; top: var(--cap-top, auto); bottom: auto; width: min(640px, 86vw); transform: translateX(-50%); text-align: center; }
 .st-list { display: grid; }
 .st-item { grid-area: 1 / 1; opacity: 0; transform: translateY(18px); filter: blur(8px);
   transition: opacity .5s var(--ease), transform .8s var(--ease), filter .6s var(--ease); }
@@ -670,12 +674,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .footer-inner { border-top: 0; padding: 28px 34px; }
 
 /* ── Wide screens: text on one side, the object on the other ──────────── */
-.wide { --rail-y: 50%; }
-.wide .lay-l .anchor { left: 64%; top: 50%; }
-.wide .lay-r .anchor { left: 38%; top: 50%; }
-.wide .lay-c .anchor { left: 50%; top: 50%; }
+.wide { --rail-y: var(--ay, 50%); }
+.wide .lay-l .anchor { left: 64%; top: var(--ay, 50%); }
+.wide .lay-r .anchor { left: 38%; top: var(--ay, 50%); }
+.wide .lay-c .anchor { left: 50%; top: var(--ay, 50%); }
 .h-phone { z-index: 2; }
-.wide .scene:is(.lay-l, .lay-r, .lay-c) .st-cap { top: 50%; bottom: auto; transform: translateY(-50%); text-align: left; width: min(30vw, 470px); }
+.wide .scene:is(.lay-l, .lay-r, .lay-c) .st-cap { top: var(--ay, 50%); bottom: auto; transform: translateY(-50%); text-align: left; width: min(30vw, 470px); }
 .wide .lay-l .st-cap, .wide .lay-c .st-cap { left: calc(var(--padx) + 44px); }
 .wide .lay-c .st-cap { width: min(19vw, 290px); }
 .wide .lay-r .st-cap { left: auto; right: var(--padx); }
@@ -704,7 +708,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .st-title { font-size: clamp(40px, 11.5vw, 72px); }
   :root { --rail-y: var(--ay, 42%); }
   .anchor, .st-title { top: var(--ay, 42%); }
-  .st-cap { bottom: 62px; width: calc(100% - 40px); }
+  .st-cap { width: calc(100% - 40px); }
   .st-t { font-size: 30px; margin-bottom: 8px; }
   .st-p { font-size: 16px; line-height: 1.45; }
   .j-day .jd-l { display: none; }
