@@ -345,7 +345,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @keyframes capswap { from { opacity: 0; filter: blur(6px); transform: translateY(6px); } }
 .st-t { margin: 0 0 8px; font: 400 clamp(24px, 2.1vw, 34px)/1.05 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .032em currentColor; font-synthesis: none; }
 .st-p { margin: 0 auto; max-width: 48ch; font-size: clamp(15px, 1.08vw, 17px); line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
-.st-rail { position: absolute; left: var(--padx); top: 50%; width: 4px; height: min(40vh, 340px); transform: translateY(-50%);
+.st-rail { position: absolute; left: var(--padx); top: var(--rail-y, 45%); width: 4px; height: min(40vh, 340px); transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 6px; transition: opacity .6s var(--ease); }
 .st-steps.idle .st-rail { opacity: .5; }
 .st-rail b { position: relative; flex: 1; border-radius: 999px; background: var(--ink-12); overflow: hidden; }
@@ -637,14 +637,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   background-image: linear-gradient(var(--grid-c) 1px, transparent 1px), linear-gradient(90deg, var(--grid-c) 1px, transparent 1px); background-size: 34px 34px; background-position: center;
   -webkit-mask: radial-gradient(ellipse 70% 70% at 50% 46%, #000 10%, rgba(0,0,0,.5) 40%, transparent 75%); mask: radial-gradient(ellipse 70% 70% at 50% 46%, #000 10%, rgba(0,0,0,.5) 40%, transparent 75%); }
 .f-anchor { position: absolute; left: 50%; top: 44%; width: 0; height: 0; }
-.f-word { font: 400 clamp(64px, 12vw, 230px)/1 var(--syne); letter-spacing: -0.045em; -webkit-text-stroke: .03125em currentColor; font-synthesis: none; white-space: nowrap; text-align: center; }
+.f-word { font: 400 clamp(72px, 13.5vw, 260px)/1 var(--syne); letter-spacing: -0.045em; -webkit-text-stroke: .03125em currentColor; font-synthesis: none; white-space: nowrap; text-align: center; }
 .f-card { width: min(500px, 86vw); --sq-tint: var(--veil); }
 .f-card .sq-body { display: flex; align-items: flex-start; gap: 18px; padding: 24px 28px 26px 24px; }
 .f-disc { width: 52px; height: 52px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); }
 .f-h { margin: 4px 0 8px; font: 400 clamp(20px, 1.6vw, 24px)/1.05 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; }
 .f-card p { margin: 0; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
 .f-dots { position: absolute; left: 50%; bottom: max(34px, 7vh); transform: translateX(-50%); display: flex; gap: 14px; }
-.f-dot { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2);
+.f-dot { width: 52px; height: 52px; border: 0; padding: 0; cursor: pointer; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2);
   -webkit-backdrop-filter: blur(22px) saturate(1.1); backdrop-filter: blur(22px) saturate(1.1);
   transition: color .5s var(--ease), background-color .5s var(--ease), box-shadow .7s var(--ease), transform .6s var(--spring); }
 .f-dot.past { color: var(--ink); }
@@ -661,10 +661,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   transition: opacity .5s var(--ease), transform .6s var(--spring); }
 .to-top.on { opacity: 1; transform: none; pointer-events: auto; }
 @media (hover: hover) { .to-top:hover .ic { transform: translateY(-2px); } }
-.site-footer { background: var(--on-card); border-radius: 40px 40px 0 0; padding-top: 34px; }
-.footer-inner { border-top: 0; padding-top: 0; }
+/* The footer is a bento like the app's: the neumorphic face, painted by js/bento.js. */
+[data-bento] { position: relative; isolation: isolate; }
+.bento-canvas { position: absolute; left: -48px; top: -48px; z-index: -1; pointer-events: none; }
+/* overflow-x: clip — the bento's shadow canvas bleeds 48 px and must not widen the page. */
+.site-footer { padding: 30px 0 calc(34px + env(safe-area-inset-bottom)); overflow-x: clip; }
+.footer-inner { border-top: 0; padding: 28px 34px; }
 
 /* ── Wide screens: text on one side, the object on the other ──────────── */
+.wide { --rail-y: 50%; }
 .wide .lay-l .anchor { left: 64%; top: 50%; }
 .wide .lay-r .anchor { left: 38%; top: 50%; }
 .wide .lay-c .anchor { left: 50%; top: 50%; }
@@ -696,6 +701,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-width: 859px) {
   :root { --padx: 10px; }
   .st-title { font-size: clamp(40px, 11.5vw, 72px); }
+  :root { --rail-y: 42%; }
   .anchor, .st-title { top: 42%; }
   .st-cap { bottom: 62px; width: calc(100% - 40px); }
   .st-t { font-size: 30px; margin-bottom: 8px; }
@@ -705,7 +711,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .st-rail b.gap { margin-top: 10px; }
   .j-e2e { font-size: calc(var(--H) * .5); }
   .f-anchor { top: 40%; }
-  .f-word { font-size: clamp(40px, 14vw, 96px); }
+  .f-word { font-size: clamp(52px, 17vw, 112px); }
   .f-dots { bottom: 18px; gap: 10px; }
   .f-dot { width: 44px; height: 44px; }
   .scroll-cue { display: none; }
@@ -723,6 +729,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (max-width: 560px) { .hide-sm { display: none; } }
 @media (max-width: 400px) { .wordmark { display: none; } }
+/* Phones: the hero fits the screen, "whit." drifts only a little, and a scroll cue
+   sits at the very bottom of the viewport whatever the phone's height. */
+.scroll-cue-m { display: none; }
+@media (max-width: 720px) {
+  .hero { height: max(560px, 100svh); }
+  .hero-foot { bottom: calc(62px + env(safe-area-inset-bottom)); }
+  .hero.on .ht-l > span { transform: translateY(calc(var(--sk) * -6vh)); }
+  .hero.on .ht-r > span { transform: translateY(calc(var(--sk) * 2.5vh)); opacity: calc(1 - var(--sk) * 1.4); }
+  .scroll-cue-m { position: fixed; z-index: 3; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 2px; font: 600 11px/1 var(--body); letter-spacing: .12em; color: var(--muted);
+    opacity: 0; transition: opacity .8s var(--ease) 2.2s; pointer-events: none; }
+  .hero.on .scroll-cue-m { opacity: calc(1 - var(--sk) * 6); transition-delay: 0s, 0s; }
+  .scroll-cue-m .ic { animation: cuebob 1.8s var(--ease) infinite; }
+  .footer-inner { padding: 22px 22px; }
+}
+@keyframes cuebob { 0%, 100% { transform: translateY(0); opacity: .6; } 50% { transform: translateY(4px); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue i::after, .caret, .jn-t::after { animation: none; }
   .st-item, .st-hl { transition-duration: .01s; }

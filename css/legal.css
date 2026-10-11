@@ -48,9 +48,9 @@ strong { font-weight: 600; }
 .grid-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none;
   background-image: linear-gradient(var(--grid-c) 1px, transparent 1px), linear-gradient(90deg, var(--grid-c) 1px, transparent 1px); background-size: 34px 34px;
   -webkit-mask: radial-gradient(ellipse 72% 72% at 50% 48%, #000 10%, rgba(0,0,0,.55) 40%, transparent 76%); mask: radial-gradient(ellipse 72% 72% at 50% 48%, #000 10%, rgba(0,0,0,.55) 40%, transparent 76%); }
-.lg-glow { position: fixed; z-index: -1; right: -18vmax; top: -14vmax; width: 70vmax; height: 70vmax; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--glow) 30%, transparent), color-mix(in srgb, var(--glow) 9%, transparent) 55%, transparent); filter: blur(30px); }
-:root[data-theme="light"] .lg-glow { background: radial-gradient(closest-side, color-mix(in srgb, var(--glow) 22%, transparent), color-mix(in srgb, var(--glow) 7%, transparent) 55%, transparent); }
+.lg-glow { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(60vmax 60vmax at 88% 6%, color-mix(in srgb, var(--glow) 26%, transparent), color-mix(in srgb, var(--glow) 8%, transparent) 50%, transparent 72%); }
+:root[data-theme="light"] .lg-glow { background: radial-gradient(60vmax 60vmax at 88% 6%, color-mix(in srgb, var(--glow) 20%, transparent), color-mix(in srgb, var(--glow) 6%, transparent) 50%, transparent 72%); }
 
 /* ── Header: the website's floating glass island ──────────────────────── */
 .lg-head { position: fixed; z-index: 50; top: calc(14px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
@@ -71,6 +71,7 @@ strong { font-weight: 600; }
 
 /* ── Page ─────────────────────────────────────────────────────────────── */
 main { position: relative; max-width: 48rem; margin: 0 auto; padding: 150px 22px 110px; }
+main { overflow-x: clip; }
 main > .mark { display: none; }
 h1 { margin: 0 0 .3em; font: 400 clamp(46px, 8.4vw, 92px)/1.02 'Syne', sans-serif; letter-spacing: -0.035em; -webkit-text-stroke: .03125em currentColor; font-synthesis: none; text-wrap: balance; hyphens: auto; }
 .lede { margin: 0 0 .4rem; font: 400 clamp(19px, 2vw, 24px)/1.25 'Syne', sans-serif; letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; color: var(--ink-2); }
@@ -103,7 +104,9 @@ th { text-align: left; font: 600 .74rem/1.2 'PJS', sans-serif; letter-spacing: .
 td { padding: 13px 12px; border-top: 1px solid var(--ink-12); vertical-align: top; color: var(--ink-2); }
 td:first-child { color: var(--ink); font-weight: 600; }
 
-footer { margin-top: 3rem; padding: 26px 30px; border-radius: 32px; background: var(--on-card); font-size: .875rem; color: var(--ink-2);
+[data-bento] { position: relative; isolation: isolate; }
+.bento-canvas { position: absolute; left: -48px; top: -48px; z-index: -1; pointer-events: none; }
+footer { margin-top: 3rem; padding: 26px 30px; font-size: .875rem; color: var(--ink-2);
   display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; }
 
 .todo { background: #FFE9A8; color: #4A3B00; padding: 2px 6px; border-radius: 4px; font-weight: 600; }

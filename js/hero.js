@@ -49,7 +49,8 @@ export class Hero {
     const mobile = W < 720;
     this.size = mobile ? Math.min(W * 0.56, H * 0.28) : Math.min(H * 0.44, W * 0.3, 500);
     this.cx = W / 2;
-    this.cy = mobile ? H * 0.38 : H * 0.43;
+    // Phones: the drop sits higher, so "whit." has room to drift before the text below.
+    this.cy = mobile ? H * 0.33 : H * 0.43;
     s.style.setProperty('--blob', this.size + 'px');
     s.style.setProperty('--cy', this.cy + 'px');
   }

@@ -4,6 +4,7 @@
 // every <h2> section into a glass card that arrives softly as it scrolls in.
 import { Cursor } from './cursor.js';
 import { icon } from './glyphs.js';
+import { mountBentos, repaintBentos } from './bento.js';
 
 const root = document.documentElement;
 const de = (root.lang || 'de').startsWith('de');
@@ -36,6 +37,7 @@ toggle.addEventListener('click', () => {
   root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
   try { localStorage.setItem('whit.theme', root.dataset.theme); } catch (_) {}
   sync();
+  repaintBentos();
 });
 sync();
 
@@ -62,5 +64,9 @@ const onScroll = () => {
 };
 addEventListener('scroll', onScroll, { passive: true });
 onScroll();
+
+// The footer: a bento with the app's neumorphic face.
+const foot = document.querySelector('main > footer');
+if (foot) { foot.dataset.bento = 'section'; mountBentos(); }
 
 new Cursor({});

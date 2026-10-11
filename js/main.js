@@ -11,6 +11,7 @@ import { Patterns, STEPS as P_STEPS } from './patterns.js';
 import { HabitScene, STEPS as H_STEPS } from './habitscene.js';
 import { Free, STEPS as F_STEPS } from './free.js';
 import { repaintGlass } from './squircle.js';
+import { mountBentos, repaintBentos } from './bento.js';
 
 const PLAY = 'https://play.google.com/store/apps/details?id=app.whit.mobile';
 const store = {
@@ -88,6 +89,9 @@ function buildScenes() {
   free.build(L);
 }
 buildScenes();
+mountBentos();
+// The three discs under "für alle" jump to their statement.
+free.onJump = (i) => { const sc = scenes?.[3]; if (sc) scrollTo({ top: sc.top + (sc.len * (i + 0.45)) / sc.n, behavior: 'smooth' }); };
 
 const scenes = [
   new Scene(document.getElementById('s-journey'), { steps: J_STEPS, chapters: (s) => (s < 4 ? 0 : s < 8 ? 1 : 2), update: (s, o) => journey.update(s, o) }),
@@ -202,6 +206,7 @@ function setTheme(d) {
   store.set('whit.theme', d ? 'dark' : 'light');
   applyTheme(dark);
   repaintGlass();
+  repaintBentos();
   journey.retheme();
   habitScene.retheme();
   syncThemeToggle();
