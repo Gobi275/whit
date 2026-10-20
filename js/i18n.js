@@ -25,7 +25,7 @@ export const STR = {
     langOther: 'EN', dec: ',',
 
     heroMeet: 'meet', heroWhit: 'whit.',
-    heroSub: 'jeder moment ist einen whit wert.',
+    heroSub: 'schlaf, sport, menschen, wetter:\nwhit zeigt dir, was davon deine stimmung bewegt.',
     heroChipMood: 'Stimmung', heroChipHabits: 'Gewohnheiten', heroChipSync: 'E2E-Sync', heroChipFree: 'Gratis · werbefrei · privat',
     heroMore: 'so geht’s', heroTryTouch: 'tipp irgendwo hin',
     scroll: 'scrollen',
@@ -94,7 +94,7 @@ export const STR = {
     // 06 · for everyone
     fSteps: [
       ['privat.', 'Ohne Konto nutzbar. Export und Löschen jederzeit, mit einem Tipp.', 'lock', 'kein konto nötig'],
-      ['werbefrei.', 'Keine Werbe-IDs, keine Tracker, keine Nutzungsmessung.', 'view_off', 'niemand schaut mit'],
+      ['werbefrei.', 'Keine Werbe-IDs, keine Tracker, keine Nutzungsmessung in der App.', 'view_off', 'niemand schaut mit'],
       ['kostenlos.', 'Ein persönliches Projekt, ohne Investoren und ohne Geschäftsmodell, das deine Daten bräuchte.', 'heart', 'für immer'],
     ],
 
@@ -111,7 +111,7 @@ export const STR = {
     langOther: 'DE', dec: '.',
 
     heroMeet: 'meet', heroWhit: 'whit.',
-    heroSub: 'every moment is worth a whit.',
+    heroSub: 'sleep, exercise, people, weather:\nwhit shows you which of them move your mood.',
     heroChipMood: 'Mood', heroChipHabits: 'Habits', heroChipSync: 'E2E sync', heroChipFree: 'Free · ad-free · private',
     heroMore: 'see how', heroTryTouch: 'tap anywhere',
     scroll: 'scroll',
@@ -176,7 +176,7 @@ export const STR = {
 
     fSteps: [
       ['private.', 'Works without an account. Export and delete any time, with one tap.', 'lock', 'no account needed'],
-      ['ad-free.', 'No advertising IDs, no trackers, no usage analytics.', 'view_off', 'nobody watching'],
+      ['ad-free.', 'No advertising IDs, no trackers, no usage analytics in the app.', 'view_off', 'nobody watching'],
       ['free.', 'A personal project, no investors, no business model that would need your data.', 'heart', 'forever'],
     ],
 

@@ -12,8 +12,8 @@ import { HabitScene, STEPS as H_STEPS } from './habitscene.js';
 import { Free, STEPS as F_STEPS } from './free.js';
 import { repaintGlass } from './squircle.js';
 import { mountBentos, repaintBentos } from './bento.js';
+import { playUrl, track, trackChapter } from './analytics.js';
 
-const PLAY = 'https://play.google.com/store/apps/details?id=app.whit.mobile';
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} },
@@ -34,12 +34,13 @@ function applyCopy() {
   document.title = L.title;
   document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = L[el.dataset.t]; });
   document.querySelectorAll('[data-href]').forEach((el) => { el.href = L[el.dataset.href]; });
-  document.querySelectorAll('.play-link').forEach((a) => (a.href = PLAY));
+  document.querySelectorAll('.play-link').forEach((a) => (a.href = playUrl(a.dataset.from)));
   document.querySelectorAll('[data-icon]').forEach((el) => {
     if (!el.querySelector('svg')) el.insertAdjacentHTML('afterbegin', icon(el.dataset.icon, +el.dataset.size || 20));
   });
 }
 applyCopy();
+document.querySelectorAll('.play-link').forEach((a) => a.addEventListener('click', () => track(`play-${a.dataset.from}`)));
 
 // ── Hero ──────────────────────────────────────────────────────────────────
 const heroSec = document.getElementById('sec-hero');
@@ -60,6 +61,8 @@ function setNow(w, c) {
   chips.style.setProperty('--fd1', css(c));
   chips.style.setProperty('--fd2', css(duotoneSibling(c)));
   cursor.setMood(w);
+  // Hover (mouse) or tap (touch) steered the drop to a new word: someone played with it.
+  if (hero?.pointer) track('hero-blob-steered');
 }
 const hero = new Hero(heroSec, { words: MOOD_WORDS[lang], onWord: setNow });
 requestAnimationFrame(() => setTimeout(() => heroSec.classList.add('on'), 450));
@@ -71,6 +74,7 @@ ctaSec.addEventListener('pointerleave', () => { cta.hover = false; if (hero.last
 const ctaIO = new IntersectionObserver((en) => {
   if (!en[0].isIntersecting) return;
   ctaIO.disconnect();
+  trackChapter(6);
   cta.play();
   setTimeout(() => ctaSec.classList.add('on'), 450);
 }, { threshold: 0.35 });
@@ -142,6 +146,7 @@ function setChapter(ch) {
   shownCh = ch;
   chapterEl.classList.toggle('on', ch >= 0);
   if (ch < 0) { chapterEl.style.width = '0px'; return; }
+  trackChapter(ch);
   const inner = chapterEl.querySelector('.ch-in');
   chN.textContent = String(ch + 1).padStart(2, '0');
   chT.textContent = L.chapters[ch];
