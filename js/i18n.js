@@ -25,7 +25,7 @@ export const STR = {
     langOther: 'EN', dec: ',',
 
     heroMeet: 'meet', heroWhit: 'whit.',
-    heroSub: 'schlaf, sport, menschen, wetter:\nwhit zeigt dir, was davon deine stimmung bewegt.',
+    heroSub: 'halt fest, wie’s dir geht und was du tust.\nwhit zeigt dir, was davon dir guttut.',
     heroChipMood: 'Stimmung', heroChipHabits: 'Gewohnheiten', heroChipSync: 'E2E-Sync', heroChipFree: 'Gratis · werbefrei · privat',
     heroMore: 'so geht’s', heroTryTouch: 'tipp irgendwo hin',
     scroll: 'scrollen',
@@ -111,7 +111,7 @@ export const STR = {
     langOther: 'DE', dec: '.',
 
     heroMeet: 'meet', heroWhit: 'whit.',
-    heroSub: 'sleep, exercise, people, weather:\nwhit shows you which of them move your mood.',
+    heroSub: 'note how you feel and what you do.\nwhit shows you what does you good.',
     heroChipMood: 'Mood', heroChipHabits: 'Habits', heroChipSync: 'E2E sync', heroChipFree: 'Free · ad-free · private',
     heroMore: 'see how', heroTryTouch: 'tap anywhere',
     scroll: 'scroll',
