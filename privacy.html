@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — whit</title>
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/legal.css">
+<script>
+  // Same theme as the website (same key), dark unless the visitor chose light.
+  try { document.documentElement.dataset.theme = localStorage.getItem('whit.theme') === 'light' ? 'light' : 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
+<script type="module" src="js/legal.js"></script>
+</head>
+<body>
+<main>
+
+<a class="mark" href="index.html" aria-label="whit">
+  <svg viewBox="0 0 700 606" aria-hidden="true">
+    <path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
+  </svg>
+  <span>whit</span>
+</a>
+
+<h1>Privacy Policy</h1>
+<p class="lede">whit — log how you feel.</p>
+<p class="meta">Last updated: 27.10.2026 · <a href="privacy-de.html">Deutsche Fassung</a></p>
+
+<div class="card">
+  <p><strong>In short:</strong> whit works fully offline. Everything you write
+  stays on your device unless you voluntarily sign in for cloud sync. There are
+  no ads, no tracking, and nothing is ever sold or shared with third parties —
+  not even in aggregated or anonymised form. Technical crash reports are off
+  unless you switch them on yourself
+  (<a href="#crash-reports">section 4</a>). The website counts visits without
+  cookies and without storing IP addresses (<a href="#website">section 11</a>).</p>
+</div>
+
+<h2>1. Who is responsible</h2>
+<p>The data controller under the GDPR is:</p>
+<p>
+  Leopold Wolpert<br>
+  Email: <a href="mailto:gobi275@proton.me">gobi275@proton.me</a>
+</p>
+<p>whit is the private project of one individual and is not affiliated with any
+employer or other organisation.</p>
+
+<h2>2. What the app processes</h2>
+<p>whit collects nothing in the background. The only data processed is what you
+enter yourself:</p>
+
+<table>
+  <tr>
+    <th>Data</th>
+    <th>Purpose</th>
+    <th>Where it is stored</th>
+  </tr>
+  <tr>
+    <td>Mood entries ("whits"): a 1–7 rating, an energy value, a timestamp, tags,
+        and context about sleep and activity</td>
+    <td>The core of the app: history, insights, reviews</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
+  </tr>
+  <tr>
+    <td>Free-text notes attached to entries</td>
+    <td>Your personal journal; visible only to you</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
+  </tr>
+  <tr>
+    <td>Habits and their completion history</td>
+    <td>Habit tracking, streaks, correlation with mood</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
+  </tr>
+  <tr>
+    <td>First name (optional, asked during onboarding)</td>
+    <td>Only to greet you on the home screen</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
+  </tr>
+  <tr>
+    <td>Settings: language, colour theme, reminder times</td>
+    <td>How the app behaves</td>
+    <td>On your device only; with an account also in the cloud, end-to-end encrypted</td>
+  </tr>
+  <tr>
+    <td>Email address — <strong>only</strong> if you choose to create an account</td>
+    <td>Signing in and linking your data to your account</td>
+    <td>Firebase Authentication</td>
+  </tr>
+</table>
+
+<p><strong>Without an account, not a single entry leaves your device.</strong> The
+app contains no advertising or tracking libraries and does not measure how you
+use it. It collects no location, contacts, photos or usage statistics. Technical
+crash reports are sent only if you switch them on;
+<a href="#crash-reports">section 4</a> spells out exactly what they contain.</p>
+
+<h2>3. Cloud sync (optional)</h2>
+<p>You can create a free account in the settings to back up your data and use it
+on more than one device. Nothing is transmitted before you do. The provider is
+Google Firebase (Firebase Authentication and Cloud Firestore), operated by
+Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, acting
+as a processor under Art. 28 GDPR.</p>
+<p><strong>Everything you sync is end-to-end encrypted.</strong> Your entries,
+notes, habits, name and settings are encrypted on your device (AES-256-GCM)
+before they are uploaded, with a key that never leaves your devices unencrypted.
+Google stores only unreadable ciphertext, and neither Google nor the developer
+of whit can read your data — not in the database, not in the Firebase console.
+What remains visible is technical: your email address and account ID (needed to
+sign in), how many documents your account holds and when the server stored them.
+Document names are random and reveal nothing, not even when an entry was
+created.</p>
+<p>The key is protected by a <strong>recovery code</strong> that whit shows you
+once when you set up sync. You need it to open your cloud copy on a new device.
+Nobody can restore it for you: if you lose it, the cloud copy can no longer be
+decrypted. The data on your device is not affected, and you can replace the
+cloud copy with it at any time.</p>
+<p>In addition, your data is stored in an area scoped exclusively to your
+account identifier, and the database security rules permit access only to the
+signed-in account itself.</p>
+<p>Transfers to third countries (in particular the USA) cannot be ruled out when
+using Google services. Google is certified under the EU-US Data Privacy
+Framework; the European Commission's Standard Contractual Clauses apply in
+addition.</p>
+<p>If you sign in with Google, Google learns that you are signing in to whit as
+part of that process. Google's
+<a href="https://policies.google.com/privacy">privacy policy</a> applies
+additionally.</p>
+
+<h2 id="crash-reports">4. Crash reports</h2>
+<p>To find and fix errors, whit uses Firebase Crashlytics (Google Ireland
+Limited, address as above) &mdash; <strong>only if you have switched crash
+reports on</strong> under Settings &rarr; Privacy &rarr; <em>Crash reports</em>.
+The switch is off by default. With it on, if the app crashes, a report is
+transmitted
+containing the technical cause: the error message, the position in the program
+code, the app version, the device model, the operating system version and a
+randomly generated, app-specific installation identifier.</p>
+<p>The contents of your entries &mdash; mood values, notes, tags and habits
+&mdash; are never part of a crash report. The identifier is not linked to your
+account and is reset when the app is reinstalled.</p>
+<p>Legal basis is your consent, Art. 6(1)(a) GDPR, given by switching crash
+reports on. Google retains crash reports for 90 days.</p>
+<p><strong>You can withdraw your consent at any time</strong> by switching it
+off again. It takes effect immediately, crash reports not yet sent are deleted
+from the device, and the choice applies to this device only &mdash; it is not
+synced, so another device can neither switch it on nor off for you.</p>
+
+<h2 id="legal-bases">5. Legal bases</h2>
+<ul>
+  <li><strong>Art. 6(1)(b) GDPR</strong> (performance of a contract) — for storing
+  your entries locally, without which the app would have no function.</li>
+  <li><strong>Art. 6(1)(a) GDPR</strong> (consent) — for cloud sync, which you give
+  by voluntarily creating an account and can withdraw at any time by signing out
+  or deleting the account.</li>
+  <li><strong>Art. 9(2)(a) GDPR</strong> — information about your mood and
+  wellbeing may constitute health data under Art. 9 GDPR. It is processed solely
+  on the basis of your explicit consent, given by using the app and its optional
+  cloud backup.</li>
+  <li><strong>Art. 6(1)(a) GDPR</strong> (consent) — for crash reports, which
+  you give by switching them on and can withdraw by switching them off
+  (<a href="#crash-reports">section 4</a>).</li>
+</ul>
+
+<h2>6. Retention</h2>
+<p>Local data is kept until you delete it or uninstall the app. Cloud data is
+kept until you delete it or delete your account. There is no automatic retention
+period and nothing is retained after account deletion.</p>
+
+<h2>7. Deletion and your rights</h2>
+<p>In the app:</p>
+<ul>
+  <li><strong>Individual entries</strong> — delete them in History; the deletion
+  propagates to your other devices and to the cloud.</li>
+  <li><strong>All data</strong> — Settings → Data → "clear all data". Deletes the
+  data on the device <em>and</em> in the cloud.</li>
+  <li><strong>Your account and all cloud data</strong> — Account sheet → "delete
+  account". Permanently removes the account and every database record belonging
+  to it.</li>
+</ul>
+<p><strong>Deletion without the app installed:</strong> email
+<a href="mailto:gobi275@proton.me">gobi275@proton.me</a> from the address you
+registered with. The account and all associated data will be deleted within
+30 days, usually much sooner. Every route in detail — including what is kept —
+is on the <a href="delete.html#english">Delete account and data</a> page.</p>
+<p>You have the rights to access (Art. 15), rectification (Art. 16), erasure
+(Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and
+withdrawal of consent (Art. 7(3)) at any time. For portability, the app offers a
+direct JSON or CSV export under Settings → Data, so you do not need to contact
+anyone.</p>
+<p>You also have the right to lodge a complaint with a data protection
+supervisory authority.</p>
+
+<h2>8. App permissions</h2>
+<ul>
+  <li><strong>Notifications</strong> — only for the reminders you set yourself.
+  The app works fully without this permission, just without reminders.</li>
+  <li><strong>Vibration</strong> — haptic feedback while using the app.</li>
+  <li><strong>Boot completed</strong> — restores your reminders after the device
+  restarts.</li>
+  <li><strong>Biometrics</strong> — only for the optional app lock. Your operating
+  system performs the check entirely; the app receives nothing but "unlocked" or
+  "not unlocked". whit never reads, stores or transmits fingerprint or face data —
+  it never leaves your device's secure hardware.</li>
+</ul>
+<p>The app requests no access to location, camera, microphone, contacts or files.
+When importing a backup you pick the file yourself through the system picker.</p>
+<p><strong>About the app lock, plainly:</strong> it guards access to the interface;
+it does not encrypt the database on the device. Anyone with physical access to an
+unlocked or rooted device could in principle read the files. Your operating
+system's own encryption applies to the device lock itself.</p>
+
+<h2>9. Minimum age</h2>
+<p>whit is intended for people aged 16 and over and does not knowingly collect
+data from anyone younger. The threshold follows Art. 8 GDPR: in Germany, a young
+person can only give valid consent to an online service processing their data
+from the age of 16. That consent is exactly what cloud sync and the processing
+of your mood entries as health data rest on
+(<a href="#legal-bases">section 5</a>).</p>
+<p>Without an account the app processes everything locally on the device. If I
+learn that an account belongs to someone younger, I delete it along with all
+data attached to it.</p>
+
+<h2>10. Changes</h2>
+<p>Material changes to this policy will be indicated by the date above and, where
+necessary, by a notice inside the app.</p>
+
+<h2 id="website">11. This website</h2>
+<p>This section is about the website only, not the app. The website is served
+by GitHub Pages (GitHub Inc., USA). When you open it, GitHub processes the
+connection data it technically needs, such as your IP address, to deliver and
+protect the page; the
+<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>
+applies.</p>
+<p>To understand how the website is read, it counts visits with
+<a href="https://www.goatcounter.com">GoatCounter</a> (run by Martin Tournoij,
+Ireland; servers at Hetzner in Germany and Finland). <strong>No cookies are set
+and nothing is stored on your device.</strong> What is counted: the page, the
+referring page, browser, operating system, screen width, language and the
+country derived from the IP address, plus which parts of the page were reached
+and which buttons were pressed. The IP address itself is not stored; to avoid
+counting you twice, it is kept in memory together with the browser identifier
+for at most 8 hours. Only aggregated numbers are looked at; they cannot be
+traced back to you.</p>
+<p>The legal basis is my legitimate interest in a website that is clear and
+works (Art. 6(1)(f) GDPR). The links to Google Play carry a campaign tag (e.g.
+<code>utm_source=website</code>) so the Play Console can show how many installs
+came through the website; it contains nothing about you.</p>
+
+<footer>
+  <span>whit</span>
+  <a href="privacy-de.html">Deutsche Fassung</a>
+  <a href="index.html">Home</a>
+  <a href="mailto:gobi275@proton.me">Contact</a>
+</footer>
+
+</main>
+</body>
+</html>

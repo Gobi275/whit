@@ -1,0 +1,15 @@
+Syne.ttf in this directory is the Syne variable font.
+
+Copyright 2017 The Syne Project Authors (https://github.com/BonjourMonde/syne)
+
+Licensed under the SIL Open Font License, Version 1.1.
+Full licence text: https://openfontlicense.org/open-font-license-official-text/
+Upstream (with the OFL.txt as shipped by the foundry):
+https://github.com/google/fonts/tree/main/ofl/syne
+
+The OFL permits redistribution and use in a website, including embedding via
+@font-face, provided the font is not sold on its own and this notice travels
+with it. The same file is bundled in the app at assets/fonts/Syne.ttf.
+
+TODO: drop the upstream OFL.txt in here verbatim rather than linking to it —
+the licence asks for the text itself to accompany the font.

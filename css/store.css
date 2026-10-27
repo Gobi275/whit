@@ -1,0 +1,131 @@
+/* Store screenshots v2 (store.html / js/store.js). Three depth layers per frame:
+   z0 the paper ground (MoodAurora + 30 px grid), z1 the dark device in a
+   squircle liquid-glass rim with ONE big warm lift shadow, z2 the app's glass
+   laid over the device's edges. Sizes are CSS px of the 540 × 960 frame (× 2
+   in the capture). Theme tokens (--chip, --rim-*, --glass-rgb …) come from
+   theme.js applyTheme(), so the glass and bentos are the app's own. */
+
+body.store { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #000; }
+#frame { position: relative; width: 540px; height: 960px; overflow: hidden; flex: none;
+  background: #EEDCD4; color: #231814;
+  --ink: #231814; --muted: rgba(35,24,20,.6); --grid-c: rgba(35,24,20,.07);
+  --lift-c: rgba(96,44,18,.55); --wire: rgba(35,24,20,.3); --milk: rgba(255,248,244,.56); }
+#frame.clear { --milk: rgba(255,248,244,.14); }
+/* The one inverted frame: deep ground, light type, black lift. */
+#frame.inv { background: #0F0C14; color: #F3E7E1;
+  --ink: #F3E7E1; --muted: rgba(243,231,225,.62); --grid-c: rgba(243,231,225,.055); --lift-c: rgba(0,0,0,.85); --milk: rgba(255,248,244,.56); }
+#frame > * { position: absolute; }
+
+/* ── z0 ── */
+#aurora, .s-aurora { inset: 0; width: 540px; height: 960px; }
+.s-grid { inset: 0; pointer-events: none;
+  background-image: linear-gradient(var(--grid-c) 1px, transparent 1px), linear-gradient(90deg, var(--grid-c) 1px, transparent 1px);
+  background-size: 30px 30px; }
+
+/* ── Copy ── */
+.s-copy { left: 0; right: 0; top: 50px; display: flex; flex-direction: column; align-items: center; }
+.s-head { margin: 0; font: 400 58px/1 var(--syne); letter-spacing: -0.04em; -webkit-text-stroke: .034em currentColor;
+  font-synthesis: none; white-space: pre-line; text-align: center; }
+/* Keyword pills: the app's compact neumorphic bento (js/bento.js paints the
+   face + shadow pair), exactly one grid cell tall. */
+.s-keys { left: 0; right: 0; display: flex; justify-content: center; gap: 14px; height: 30px; }
+.s-keys span { position: relative; z-index: 0; isolation: isolate; height: 30px; box-sizing: border-box; padding: 0 15px;
+  display: grid; place-items: center; font: 600 13px/1 var(--body); letter-spacing: .01em; color: var(--muted); }
+
+/* ── The app's glass (glass_painters.dart via whit.css .glass): a thin tinted
+   veil over a saturating blur, a directional conic rim, a soft lift. Over the
+   dark device it needs a little milk to read — never more. ── */
+.glass-x { position: relative; border-radius: 999px; isolation: isolate;
+  background: linear-gradient(160deg, var(--hl), transparent 55%), linear-gradient(var(--milk), var(--milk)), linear-gradient(var(--chip), var(--chip));
+  -webkit-backdrop-filter: blur(22px) saturate(1.1); backdrop-filter: blur(22px) saturate(1.1);
+  box-shadow: 0 14px 30px -10px rgba(var(--lift-c-rgb, 74,40,26), .38);
+  --p: var(--rim-med-p); --d: var(--rim-med-d); }
+.inv .glass-x { --lift-c-rgb: 0,0,0; }
+.glass-x::after { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from 315deg,
+    rgba(255,255,255,.9) 0deg, rgba(var(--glass-rgb), var(--d)) 90deg,
+    rgba(255,255,255,.6) 180deg, rgba(var(--glass-rgb), var(--d)) 270deg, rgba(255,255,255,.9) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+
+/* ── z1: the device ── */
+.s-dev > * { position: absolute; }
+.s-lift { inset: 0; border-radius: 64px; background: var(--lift-c); filter: blur(36px); transform: translateY(42px) scale(.92); }
+.s-rim { inset: 0;
+  -webkit-backdrop-filter: blur(10px) saturate(1.15) brightness(1.1); backdrop-filter: blur(10px) saturate(1.15) brightness(1.1);
+  background: linear-gradient(150deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.22) 32%, rgba(255,255,255,.14) 64%, rgba(255,255,255,.44) 100%); }
+.inv .s-rim { background: linear-gradient(150deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.08) 32%, rgba(255,255,255,.05) 64%, rgba(255,255,255,.2) 100%); }
+.s-bezel { inset: 0; background: #050407; }
+.s-screen { inset: 0; background: #0F0C14; }
+.s-screen > img { position: absolute; }
+.s-dev.light .s-screen { background: #EEDCD4; }
+.s-screen::after { content: ''; position: absolute; top: 22px; left: 50%; width: 11px; height: 11px; margin-left: -5.5px;
+  border-radius: 50%; background: #020203; box-shadow: inset 0 0 0 1.5px #16141a; z-index: 2; }
+.s-status { position: absolute; left: 40px; right: 38px; top: 21px; display: flex; justify-content: space-between; align-items: center;
+  font: 600 11px/1 var(--body); color: #F3E7E1; z-index: 1; }
+.s-dev.light .s-status { color: #231814; }
+.s-status .ic { display: flex; gap: 4px; align-items: center; opacity: .92; }
+.s-edge { left: 0; top: 0; pointer-events: none; }
+
+/* ── z2: pills and sheets ── */
+/* Over the dark device: smoky glass, light words — the disc sits out on the paper. */
+.s-call, .s-gcard.week { --milk: rgba(255,248,244,.2); color: #F3E7E1; }
+.s-call { display: flex; align-items: center; gap: 12px; padding: 7px 22px 7px 7px; white-space: nowrap; }
+.s-call.flip { flex-direction: row-reverse; padding: 7px 7px 7px 22px; text-align: right; }
+.s-call .txt { font: 600 16px/1.18 var(--body); letter-spacing: -0.01em; }
+/* Over the LIGHT app (the inverted frame) the glass turns milky, the words ink. */
+#frame.inv .s-call { --milk: rgba(255,248,244,.62); color: #231814; }
+.s-call .disc, .s-gcard .disc { width: 46px; height: 46px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #231814; color: #F3E7E1; }
+.s-call .disc img { display: block; }
+.s-call b { display: block; font: 400 18px/1.05 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; font-synthesis: none; }
+.s-call small { display: block; margin-top: 3px; font: 500 12px/1.2 var(--body); color: rgba(35,24,20,.62); }
+.s-gcard { border-radius: 30px; padding: 16px; color: #231814; }
+.s-gcard .ttl { display: block; margin: 2px 2px 12px; font: 400 18px/1 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; }
+.s-gcard.tags { width: 212px; }
+.s-gcard .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.s-gcard .chip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 9px; border-radius: 99px;
+  font: 600 12.5px/1 var(--body); background: rgba(35,24,20,.07); box-shadow: inset 0 0 0 .8px rgba(35,24,20,.08); }
+.s-gcard .chip.on { background: #231814; color: #F3E7E1; box-shadow: none; }
+.s-gcard.week { width: 210px; padding: 14px 14px 12px; text-align: center; }
+.s-gcard.week img { display: block; width: 100%; }
+.s-gcard.week b { display: block; margin-top: 10px; font: 600 17px/1 var(--body); }
+.s-gcard .ln { fill: none; stroke: rgba(35,24,20,.45); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.s-gcard .days { display: flex; justify-content: space-between; padding: 4px 4px 0; }
+.s-gcard .days i { width: 16px; text-align: center; font: 600 11px/1 var(--body); font-style: normal; color: rgba(35,24,20,.55); }
+.s-gcard.habit { width: 190px; }
+.s-gcard .hd { display: flex; align-items: center; gap: 11px; }
+.s-gcard .hd b { display: block; font: 400 19px/1 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; }
+.s-gcard .hd small { display: block; margin-top: 4px; font: 500 12px/1 var(--body); color: rgba(35,24,20,.62); }
+.s-gcard .heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 14px 2px; }
+.s-gcard .heat i { aspect-ratio: 1; border-radius: 5px; background: #E8875A; }
+.s-gcard .fx { display: flex; justify-content: space-between; align-items: baseline; padding: 0 2px; font: 600 12px/1.2 var(--body); color: rgba(35,24,20,.65); }
+.s-gcard .fx b { font: 400 20px/1 var(--syne); color: #231814; -webkit-text-stroke: .034em currentColor; }
+
+/* ── Frame 1: the principle ── */
+.s-wire { left: 0; top: 0; pointer-events: none; }
+.s-wire path { stroke: var(--wire); stroke-width: 1.5; stroke-dasharray: 2 6; stroke-linecap: round; fill: none; }
+.s-halo { width: 760px; height: 760px; }
+.s-hero img { display: block; }
+.s-energy { left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 12px; }
+.s-energy span { width: 48px; height: 48px; display: grid; place-items: center; color: rgba(35,24,20,.55); }
+.s-energy span.on { width: 60px; border-radius: 99px; background: #231814; color: #F3E7E1; box-shadow: 0 12px 24px -10px rgba(74,40,26,.5); }
+.s-node { width: 84px; display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.s-node .s-gdisc { width: 84px; height: 84px; display: grid; place-items: center; color: #231814; }
+.s-node > span { font: 600 14px/1 var(--body); color: #231814; white-space: nowrap; }
+.s-elabel { left: 0; right: 0; text-align: center; font: 600 14px/1 var(--body); color: #231814; }
+.s-more { left: 0; right: 0; top: 862px; text-align: center; font: 600 14px/1 var(--body); color: #231814; }
+
+/* ── Frame 7: widgets on the paper ── */
+.s-widget { filter: drop-shadow(0 24px 30px rgba(96,44,18,.32)) drop-shadow(0 4px 8px rgba(96,44,18,.18)); }
+
+/* ── Frame 8: neumorphic tiles ── */
+.s-tile { isolation: isolate; }
+.s-tile .tb { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; color: #231814; }
+.s-tile.inv .tb { color: #F3E7E1; }
+.s-tile .disc { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; background: #231814; color: #F3E7E1; }
+.s-tile.inv .disc { background: #F3E7E1; color: #231814; }
+.s-tile b { font: 400 22px/1.08 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .034em currentColor; white-space: pre-line; }
+
+/* The ONE inverted word of a headline. */
+.s-head .inv { display: inline-block; padding: 0 .26em .04em; margin: 0 .04em; border-radius: 999px; background: #231814; color: #F3E7E1;
+  -webkit-text-stroke-color: #F3E7E1; line-height: 1.12; }
+.inv .s-head .inv, #frame.inv .s-head .inv { background: #F3E7E1; color: #231814; -webkit-text-stroke-color: #231814; }

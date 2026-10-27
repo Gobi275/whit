@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutzerklärung — whit</title>
+<link rel="icon" href="img/whit_mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Syne.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/legal.css">
+<script>
+  // Same theme as the website (same key), dark unless the visitor chose light.
+  try { document.documentElement.dataset.theme = localStorage.getItem('whit.theme') === 'light' ? 'light' : 'dark'; } catch (e) { document.documentElement.dataset.theme = 'dark'; }
+</script>
+<script type="module" src="js/legal.js"></script>
+</head>
+<body>
+<main>
+
+<a class="mark" href="index.html" aria-label="whit">
+  <svg viewBox="0 0 700 606" aria-hidden="true">
+    <path fill="currentColor" d="M687.475 182.465C641.318 -17.989 47.3687 -78.4101 11.1143 161.8C-16.6239 345.585 63.7731 490.283 134.908 485.749C206.044 481.216 212.316 428.312 283.595 428.034C354.874 427.757 344.667 556.671 442.797 596.352C540.927 636.033 733.631 382.92 687.475 182.465Z"/>
+  </svg>
+  <span>whit</span>
+</a>
+
+<h1>Datenschutzerklärung</h1>
+<p class="lede">whit — halt fest, wie's dir geht.</p>
+<p class="meta">Stand: 27.10.2026 · <a href="privacy.html">English version</a></p>
+
+<div class="card">
+  <p><strong>Kurz gesagt:</strong> whit funktioniert vollständig offline. Alle
+  Einträge liegen ausschließlich auf deinem Gerät, solange du dich nicht
+  freiwillig für die Cloud-Synchronisierung anmeldest. Es gibt keine Werbung,
+  kein Tracking, keine Weitergabe oder Verkauf von Daten an Dritte — auch nicht
+  in anonymisierter Form. Technische Absturzberichte sind aus, solange du sie
+  nicht selbst einschaltest
+  (<a href="#absturzberichte">Abschnitt 4</a>). Die Website zählt Besuche
+  ohne Cookies und ohne IP-Speicherung (<a href="#website">Abschnitt 11</a>).</p>
+</div>
+
+<h2>1. Verantwortlicher</h2>
+<p>Verantwortlich für die Datenverarbeitung im Sinne der DSGVO ist:</p>
+<p>
+  Leopold Wolpert<br>
+  E-Mail: <a href="mailto:gobi275@proton.me">gobi275@proton.me</a>
+</p>
+<p>whit ist ein privates Projekt einer Einzelperson und steht in keiner
+Verbindung zu einem Arbeitgeber oder einer anderen Organisation.</p>
+
+<h2>2. Welche Daten die App verarbeitet</h2>
+<p>whit erhebt keine Daten im Hintergrund. Verarbeitet wird ausschließlich, was
+du selbst eingibst:</p>
+
+<table>
+  <tr>
+    <th>Daten</th>
+    <th>Wozu</th>
+    <th>Wo gespeichert</th>
+  </tr>
+  <tr>
+    <td>Stimmungseinträge („whits"): Bewertung 1–7, Energie-Wert, Zeitstempel,
+        Tags, Kontextangaben zu Schlaf und Aktivität</td>
+    <td>Kern der App: Verlauf, Auswertungen, Rückblicke</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
+  </tr>
+  <tr>
+    <td>Freitext-Notizen zu einzelnen Einträgen</td>
+    <td>Persönliche Aufzeichnungen; nur für dich sichtbar</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
+  </tr>
+  <tr>
+    <td>Gewohnheiten und deren Erledigungs-Historie</td>
+    <td>Habit-Tracking, Streaks, Zusammenhänge mit der Stimmung</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
+  </tr>
+  <tr>
+    <td>Vorname (optional, in der Einführung erfragt)</td>
+    <td>Nur für die persönliche Begrüßung im Startbildschirm</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
+  </tr>
+  <tr>
+    <td>Einstellungen: Sprache, Farbschema, Erinnerungszeiten</td>
+    <td>Verhalten der App</td>
+    <td>Nur auf dem Gerät; mit Konto zusätzlich in der Cloud, Ende-zu-Ende-verschlüsselt</td>
+  </tr>
+  <tr>
+    <td>E-Mail-Adresse — <strong>nur</strong> bei freiwilliger Kontoerstellung</td>
+    <td>Anmeldung und Zuordnung deiner Daten zu deinem Konto</td>
+    <td>Firebase Authentication</td>
+  </tr>
+</table>
+
+<p><strong>Ohne Konto verlässt kein einziger Eintrag dein Gerät.</strong> Die App
+enthält keine Werbe- oder Tracking-Bibliotheken und wertet nicht aus, wie du sie
+benutzt. Es werden keine Standortdaten, Kontakte, Fotos oder Nutzungsstatistiken
+erhoben. Technische Absturzberichte werden nur übermittelt, wenn du sie
+einschaltest; <a href="#absturzberichte">Abschnitt 4</a> erklärt genau, was
+darin steht.</p>
+
+<h2>3. Cloud-Synchronisierung (optional)</h2>
+<p>Du kannst in den Einstellungen ein kostenloses Konto anlegen, um deine Daten
+zu sichern und auf mehreren Geräten zu nutzen. Erst dann werden Daten übertragen.
+Anbieter ist Google Firebase (Firebase Authentication und Cloud Firestore),
+betrieben von Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+Irland, als Auftragsverarbeiter nach Art. 28 DSGVO.</p>
+<p><strong>Alles, was du synchronisierst, ist Ende-zu-Ende-verschlüsselt.</strong>
+Deine Einträge, Notizen, Gewohnheiten, dein Name und deine Einstellungen werden
+auf deinem Gerät verschlüsselt (AES-256-GCM), bevor sie hochgeladen werden — mit
+einem Schlüssel, der deine Geräte nie unverschlüsselt verlässt. Google speichert
+nur unlesbaren Chiffretext; weder Google noch der Entwickler von whit kann deine
+Daten lesen, weder in der Datenbank noch in der Firebase-Konsole. Sichtbar
+bleibt nur Technisches: deine E-Mail-Adresse und Konto-Kennung (für die
+Anmeldung), wie viele Dokumente dein Konto hat und wann der Server sie
+gespeichert hat. Die Namen der Dokumente sind zufällig und verraten nichts,
+auch nicht, wann ein Eintrag entstanden ist.</p>
+<p>Der Schlüssel ist durch einen <strong>Wiederherstellungscode</strong>
+geschützt, den whit dir beim Einrichten einmal anzeigt. Du brauchst ihn, um
+deine Cloud-Kopie auf einem neuen Gerät zu öffnen. Niemand kann ihn für dich
+wiederherstellen: Geht er verloren, lässt sich die Cloud-Kopie nicht mehr
+entschlüsseln. Die Daten auf deinem Gerät sind davon nicht betroffen, und du
+kannst die Cloud-Kopie jederzeit durch sie ersetzen.</p>
+<p>Zusätzlich liegen deine Daten in einem Bereich, der ausschließlich deiner
+Konto-Kennung zugeordnet ist, und die Zugriffsregeln der Datenbank erlauben den
+Zugriff nur dem angemeldeten Konto selbst.</p>
+<p>Eine Übermittlung in Drittländer (insbesondere die USA) kann bei der Nutzung
+von Google-Diensten nicht ausgeschlossen werden. Google ist unter dem
+EU-US Data Privacy Framework zertifiziert; ergänzend gelten die
+Standardvertragsklauseln der EU-Kommission.</p>
+<p>Meldest du dich mit Google an, erhält Google im Rahmen dieses Anmeldevorgangs
+die Information, dass du dich bei whit anmeldest. Es gilt zusätzlich die
+<a href="https://policies.google.com/privacy">Datenschutzerklärung von Google</a>.</p>
+
+<h2 id="absturzberichte">4. Absturzberichte</h2>
+<p>Um Fehler zu finden und zu beheben, verwendet whit Firebase Crashlytics
+(Google Ireland Limited, Anschrift wie oben) &mdash; <strong>nur, wenn du
+Absturzberichte eingeschaltet hast</strong> unter Einstellungen &rarr;
+Privatsph&auml;re &rarr; <em>Absturzberichte</em>. Der Schalter ist
+standardm&auml;&szlig;ig aus. Ist er an und st&uuml;rzt die App ab, wird ein
+Bericht &uuml;bermittelt, der die technische Ursache enth&auml;lt: die
+Fehlermeldung, die Stelle im Programmcode, die App-Version, das Ger&auml;temodell,
+die Betriebssystemversion sowie eine zuf&auml;llig erzeugte, app-spezifische
+Installationskennung.</p>
+<p>Die Inhalte deiner Eintr&auml;ge &mdash; Stimmungswerte, Notizen, Tags und
+Gewohnheiten &mdash; sind nie Teil eines Absturzberichts. Die Kennung ist nicht
+mit deinem Konto verkn&uuml;pft und wird bei einer Neuinstallation
+zur&uuml;ckgesetzt.</p>
+<p>Rechtsgrundlage ist deine Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, die du
+durch das Einschalten gibst. Google bewahrt Absturzberichte 90 Tage lang
+auf.</p>
+<p><strong>Du kannst die Einwilligung jederzeit widerrufen</strong>, indem du
+den Schalter wieder ausschaltest. Das wirkt sofort, noch nicht gesendete
+Berichte werden vom Ger&auml;t gel&ouml;scht, und die Wahl gilt nur f&uuml;r
+dieses Ger&auml;t &mdash; sie wird nicht synchronisiert, ein anderes Ger&auml;t
+kann sie also weder ein- noch ausschalten.</p>
+
+<h2 id="rechtsgrundlagen">5. Rechtsgrundlagen</h2>
+<ul>
+  <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung) — für die
+  lokale Speicherung deiner Einträge, ohne die die App keine Funktion hätte.</li>
+  <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> (Einwilligung) — für die
+  Cloud-Synchronisierung, die du durch das freiwillige Anlegen eines Kontos
+  erteilst und jederzeit durch Abmelden oder Löschen des Kontos widerrufen
+  kannst.</li>
+  <li><strong>Art. 9 Abs. 2 lit. a DSGVO</strong> — Angaben zur Stimmung und zum
+  Befinden können Gesundheitsdaten im Sinne von Art. 9 DSGVO sein. Sie werden
+  ausschließlich auf Grundlage deiner ausdrücklichen Einwilligung verarbeitet,
+  die in der Nutzung der App und der optionalen Cloud-Sicherung liegt.</li>
+  <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> (Einwilligung) — für
+  Absturzberichte, die du durch Einschalten erteilst und durch Ausschalten
+  widerrufst (<a href="#absturzberichte">Abschnitt 4</a>).</li>
+</ul>
+
+<h2>6. Speicherdauer</h2>
+<p>Lokale Daten bleiben gespeichert, bis du sie löschst oder die App
+deinstallierst. Cloud-Daten bleiben gespeichert, bis du sie löschst oder dein
+Konto löschst. Es gibt keine automatische Löschfrist und keine Aufbewahrung
+über die Kontolöschung hinaus.</p>
+
+<h2>7. Löschung und deine Rechte</h2>
+<p>In der App:</p>
+<ul>
+  <li><strong>Einzelne Einträge</strong> — im Verlauf löschen; die Löschung wird
+  auf alle Geräte und in die Cloud übertragen.</li>
+  <li><strong>Alle Daten</strong> — Einstellungen → Daten → „Alle Daten löschen".
+  Löscht die Daten auf dem Gerät <em>und</em> in der Cloud.</li>
+  <li><strong>Konto samt aller Cloud-Daten</strong> — Kontobereich →
+  „Konto löschen". Löscht das Konto und alle zugehörigen Datenbank-Einträge
+  endgültig.</li>
+</ul>
+<p><strong>Löschung ohne installierte App:</strong> Schreib eine E-Mail an
+<a href="mailto:gobi275@proton.me">gobi275@proton.me</a> von der Adresse, mit der du
+dich registriert hast. Konto und alle zugehörigen Daten werden innerhalb von
+30 Tagen gelöscht, üblicherweise deutlich schneller. Alle Wege im Detail —
+inklusive dessen, was dabei bleibt — stehen auf der Seite
+<a href="delete.html">Konto und Daten löschen</a>.</p>
+<p>Dir stehen jederzeit die Rechte auf Auskunft (Art. 15), Berichtigung
+(Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+Datenübertragbarkeit (Art. 20) und Widerruf der Einwilligung (Art. 7 Abs. 3)
+zu. Für die Datenübertragbarkeit bietet die App einen direkten Export als JSON
+oder CSV unter Einstellungen → Daten, ohne dass du dich an mich wenden musst.</p>
+<p>Du hast außerdem das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu
+beschweren.</p>
+
+<h2>8. Berechtigungen der App</h2>
+<ul>
+  <li><strong>Benachrichtigungen</strong> — nur für die Erinnerungen, die du
+  selbst einstellst. Ohne diese Berechtigung funktioniert die App vollständig,
+  nur ohne Erinnerungen.</li>
+  <li><strong>Vibration</strong> — haptisches Feedback bei der Bedienung.</li>
+  <li><strong>Neustart-Ereignis</strong> — stellt eingestellte Erinnerungen nach
+  einem Geräte-Neustart wieder her.</li>
+  <li><strong>Biometrie</strong> — nur für die optionale App-Sperre. Die Prüfung
+  übernimmt vollständig dein Betriebssystem; die App erhält ausschließlich die
+  Antwort „entsperrt" oder „nicht entsperrt". Fingerabdruck- oder Gesichtsdaten
+  werden von whit nie gelesen, gespeichert oder übertragen — sie verlassen den
+  Sicherheitsbereich deines Geräts nicht.</li>
+</ul>
+<p>Die App fordert keinen Zugriff auf Standort, Kamera, Mikrofon, Kontakte oder
+Dateien an. Beim Import einer Sicherungsdatei wählst du die Datei selbst über
+die Systemauswahl aus.</p>
+<p><strong>Zur App-Sperre im Klartext:</strong> Sie sichert den Zugang zur
+Oberfläche, sie verschlüsselt die Datenbank auf dem Gerät nicht. Wer physischen
+Zugriff auf ein entsperrtes oder gerootetes Gerät hat, kann die Dateien
+grundsätzlich auslesen. Für die Bildschirmsperre selbst gilt die
+Verschlüsselung deines Betriebssystems.</p>
+
+<h2>9. Mindestalter</h2>
+<p>whit richtet sich an Personen ab 16 Jahren und erhebt nicht bewusst Daten von
+Jüngeren. Die Grenze folgt Art. 8 DSGVO: In Deutschland können Jugendliche erst
+ab 16 Jahren selbst wirksam in die Verarbeitung ihrer Daten durch einen
+Online-Dienst einwilligen. Genau darauf stützen sich die Cloud-Synchronisierung
+und die Verarbeitung deiner Stimmungsangaben als Gesundheitsdaten
+(<a href="#rechtsgrundlagen">Abschnitt 5</a>).</p>
+<p>Ohne Konto verarbeitet die App ausschließlich lokal auf dem Gerät. Erfahre
+ich, dass ein Konto von einer jüngeren Person angelegt wurde, lösche ich es samt
+aller zugehörigen Daten.</p>
+
+<h2>10. Änderungen</h2>
+<p>Wesentliche Änderungen dieser Erklärung werden über das Änderungsdatum oben
+und, falls erforderlich, über einen Hinweis in der App bekannt gemacht.</p>
+
+<h2 id="website">11. Diese Website</h2>
+<p>Dieser Abschnitt betrifft nur die Website, nicht die App. Die Website wird
+über GitHub Pages (GitHub Inc., USA) ausgeliefert. Beim Aufruf verarbeitet
+GitHub technisch notwendige Verbindungsdaten wie deine IP-Adresse, um die
+Seite auszuliefern und abzusichern; es gilt die
+<a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p>
+<p>Um zu verstehen, wie die Website gelesen wird, zählt sie Besuche mit
+<a href="https://www.goatcounter.com">GoatCounter</a> (betrieben von Martin
+Tournoij, Irland; Server bei Hetzner in Deutschland und Finnland). Dabei
+<strong>werden keine Cookies gesetzt und nichts auf deinem Gerät
+gespeichert</strong>. Erfasst werden die aufgerufene Seite, die verweisende
+Seite, Browser, Betriebssystem, Bildschirmbreite, Sprache und das aus der
+IP-Adresse abgeleitete Land, außerdem, welche Abschnitte der Seite erreicht und
+welche Buttons gedrückt wurden. Die IP-Adresse selbst wird nicht gespeichert;
+um doppelte Zählungen zu vermeiden, wird sie zusammen mit der Browserkennung
+höchstens 8 Stunden im Arbeitsspeicher vorgehalten. Ausgewertet werden nur
+zusammengefasste Zahlen, ein Rückschluss auf dich ist nicht möglich.</p>
+<p>Rechtsgrundlage ist mein berechtigtes Interesse an einer verständlichen,
+funktionierenden Website (Art. 6 Abs. 1 lit. f DSGVO). Die Links zu Google
+Play tragen eine Kampagnenkennung (z.&nbsp;B. <code>utm_source=website</code>),
+damit ich in der Play Console sehen kann, wie viele Installationen über die
+Website kamen; sie enthält keine Angaben über dich.</p>
+
+<footer>
+  <span>whit</span>
+  <a href="privacy.html">English version</a>
+  <a href="index.html">Startseite</a>
+  <a href="mailto:gobi275@proton.me">Kontakt</a>
+</footer>
+
+</main>
+</body>
+</html>
