@@ -144,11 +144,23 @@ export class BentoSurface {
     const screenDark = document.documentElement.dataset.theme !== 'light';
     const kind = el.dataset.bento || 'section';
     const inverted = el.hasAttribute('data-invert');
-    const compact = kind === 'compact' || kind === 'pill';
-    const radius = kind === 'pill' ? 999 : kind === 'compact' ? bentoCompactRadius : kind === 'tile' ? 20 : bentoRadius;
+    const compact = kind === 'compact' || kind === 'pill' || kind === 'morph';
+    let radius = kind === 'pill' ? 999 : kind === 'compact' ? bentoCompactRadius : kind === 'tile' ? 20 : bentoRadius;
     const adaptive = kind === 'pill' || el.hasAttribute('data-adaptive');
+    let bow = 1.5, exponent = 3;
+    if (kind === 'morph') {
+      // A pill that opens into a compact bento (the FAQ questions): at its
+      // collapsed height h0 a perfect stadium (circle ends, no bow), and over the
+      // first 90 px of opening it morphs into the compact squircle.
+      const h0 = el.querySelector('summary')?.offsetHeight || h;
+      const m = Math.min(1, Math.max(0, (h - h0) / 90));
+      const e = m * m * (3 - 2 * m);
+      radius = h0 / 2 + (bentoCompactRadius - h0 / 2) * e;
+      exponent = 2 + e;
+      bow = 1.5 * e;
+    }
     const glowW = kind === 'pill' ? 13 : radius >= bentoRadius ? 26 : 15;
-    const path = (l, t, r, b, rad) => squirclePath(l, t, r, b, rad, 1.5, { adaptive });
+    const path = (l, t, r, b, rad) => squirclePath(l, t, r, b, rad, bow, { adaptive, exponent });
 
     // ── Shadows (painted first, under the face) ──
     // The canvas shadow trick: draw the silhouette far off-canvas and let its

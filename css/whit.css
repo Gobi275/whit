@@ -321,8 +321,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cta-hero .hero-foot { bottom: clamp(40px, 8vh, 96px); }
 
 /* ── Scenes: a tall section, one pinned stage, everything centred ─────── */
-.scene { position: relative; height: calc(var(--steps, 3) * 80svh + 100svh); }
-.stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.scene { position: relative; height: calc(var(--steps, 3) * 80svh + 100svh); overflow-x: clip; } /* the stage's clip margin may bleed up and down, never sideways */
+.stage { position: sticky; top: 0; height: 100svh; overflow: clip; overflow-clip-margin: 120px; } /* the glows' tails reach past the stage edge as it scrolls away */
 /* No opacity, filter or transform here: this wraps every glass surface of a
    scene, and any of those would make it a backdrop root (glass inside stops
    blurring). Objects fade themselves, glass via --o on its own layers. */
@@ -756,3 +756,69 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .st-item, .st-hl { transition-duration: .01s; }
 }
 
+
+/* ── Crawlable copy: the story as plain text, for readers without JS ───────
+   tool/build_site.py writes it into each stage; main.js replaces it on load. */
+.js .seo-copy { display: none; }
+.lang-toggle[hidden] { display: none; }
+
+/* ── FAQ: the app's bentos, one question each ─────────────────────────────
+   Content and the FAQPage JSON-LD come from website/faq.json (build_site.py). */
+.faq { padding: clamp(72px, 12vh, 140px) 0 clamp(24px, 4vh, 48px); overflow-x: clip; interpolate-size: allow-keywords; }
+.faq-head { max-width: 760px; margin: 0 auto clamp(40px, 6vh, 64px); text-align: center; }
+/* The label is the site's glass chip (.chip.glass), just not a button. */
+.faq-label { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; margin-bottom: 18px; border-radius: 999px;
+  font: 600 12px/1 var(--body); letter-spacing: .14em; color: var(--ink); }
+.faq-head .lede { margin: 18px auto 0; max-width: 46ch; }
+
+.faq-quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: clamp(64px, 9vh, 104px); }
+.faq-tile { display: flex; flex-direction: column; min-height: 200px; padding: 24px 22px; color: var(--ink); }
+.faq-tile[data-invert] { color: var(--on-bold); }
+.faq-disc { width: 48px; height: 48px; margin-bottom: auto; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); }
+.faq-tile[data-invert] .faq-disc { background: var(--on-bold); color: var(--bold); }
+.faq-disc .ic { width: 22px; height: 22px; }
+.faq-tt { margin-top: 22px; font: 400 clamp(21px, 1.7vw, 25px)/1.05 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .032em currentColor; font-synthesis: none; }
+.faq-tx { margin-top: 8px; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+.faq-tile[data-invert] .faq-tx { color: inherit; opacity: .72; }
+
+.faq-group { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 14px 40px; align-items: start; }
+.faq-list { display: grid; gap: 14px; }
+.faq-group + .faq-group { margin-top: clamp(48px, 7vh, 80px); }
+.faq-cat { position: sticky; top: 104px; margin: 14px 0 0; font: 400 clamp(26px, 2.4vw, 36px)/1.05 var(--syne); letter-spacing: -0.02em;
+  -webkit-text-stroke: .032em currentColor; font-synthesis: none; text-wrap: balance; }
+.faq-item { color: var(--ink); }
+.faq-item summary { list-style: none; display: flex; align-items: center; gap: 16px; padding: 20px 22px 20px 30px; cursor: pointer; border-radius: 999px; -webkit-tap-highlight-color: transparent; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-q { flex: 1; margin: 0; font: 400 clamp(18px, 1.35vw, 21px)/1.25 var(--syne); letter-spacing: -0.01em; -webkit-text-stroke: .03em currentColor; font-synthesis: none; text-wrap: pretty; }
+.faq-plus { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--ink-08); color: var(--ink);
+  transition: transform .45s var(--spring), background-color .25s, color .25s; }
+.faq-plus .ic { width: 18px; height: 18px; }
+.faq-item details[open] .faq-plus { transform: rotate(45deg); background: var(--ink); color: var(--bg); }
+@media (hover: hover) { .faq-item summary:hover .faq-plus { background: var(--ink-12); } .faq-item details[open] summary:hover .faq-plus { background: var(--ink); } }
+.faq-item details::details-content { block-size: 0; overflow: clip; opacity: 0; transition: block-size .45s var(--ease), opacity .35s var(--ease), content-visibility .45s allow-discrete; }
+.faq-item details[open]::details-content { block-size: auto; opacity: 1; }
+.faq-a { padding: 0 30px 26px; }
+.faq-a p { margin: 0; max-width: 62ch; font-size: 16px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.faq-a p + p { margin-top: 12px; }
+
+.faq-contact { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: clamp(64px, 9vh, 104px); padding: 36px 40px; color: var(--ink); }
+.faq-ct { margin: 0; font: 400 clamp(26px, 2.4vw, 36px)/1.05 var(--syne); letter-spacing: -0.02em; -webkit-text-stroke: .032em currentColor; font-synthesis: none; }
+.faq-contact-txt p { margin: 10px 0 0; max-width: 48ch; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+.faq-contact .btn-bold { flex: none; gap: 10px; }
+@media (max-width: 1000px) {
+  .faq-quick { grid-template-columns: repeat(2, 1fr); }
+  .faq-group { grid-template-columns: 1fr; }
+  .faq-cat { position: static; margin: 0 0 6px 6px; }
+  .faq-contact { flex-direction: column; align-items: flex-start; padding: 30px 28px; }
+}
+@media (max-width: 560px) {
+  .faq-quick { gap: 14px; }
+  .faq-tile { min-height: 172px; padding: 20px 18px; }
+  .faq-tt { font-size: 20px; }
+  .faq-tx { font-size: 14px; }
+  .faq-item summary { padding: 18px 16px 18px 22px; gap: 12px; }
+  .faq-q { font-size: 17px; }
+  .faq-a { padding: 0 22px 22px; }
+  .faq-a p { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .faq-item details::details-content { transition: none; } }

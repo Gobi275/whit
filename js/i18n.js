@@ -12,11 +12,17 @@ export const MOOD_WORDS = {
     [-1]: ['hopeless', 'down', 'tired', 'mellow', 'content', 'serene', 'blissful'],
     1: ['furious', 'stressed', 'restless', 'wired', 'motivated', 'excited', 'euphoric'],
   },
+  // The app's Spanish words (lib/i18n/translations_es.dart): gender-invariant.
+  es: {
+    0: ['fatal', 'mal', 'regular', 'normal', 'bien', 'muy bien', 'genial'],
+    [-1]: ['sin esperanza', 'triste', 'sin energía', 'en calma', 'a gusto', 'en paz', 'feliz'],
+    1: ['con rabia', 'con estrés', 'con nervios', 'a mil', 'con ganas', 'alegre', 'euforia'],
+  },
 };
 
 export const STR = {
   de: {
-    title: 'whit – halt fest, wie\'s dir geht.',
+    title: 'whit – Stimmungstracker & Gewohnheiten, kostenlos und privat',
     play: 'Bei Google Play', playShort: 'Play Store',
     privacy: 'Datenschutz', del: 'Daten löschen', contact: 'Kontakt', menu: 'Menü',
     privacyHref: 'privacy-de.html',
@@ -99,16 +105,16 @@ export const STR = {
     ],
 
     ctaL: 'hol dir', ctaR: 'whit.',
-    ctaP: 'Kostenlos und werbefrei, auf Deutsch und Englisch.',
+    ctaP: 'Kostenlos und werbefrei, auf Deutsch, Englisch und Spanisch.',
   },
   en: {
-    title: 'whit – capture how you feel.',
+    title: 'whit – mood tracker & habit tracker, free and private',
     play: 'Get it on Google Play', playShort: 'Play Store',
     privacy: 'Privacy', del: 'Delete data', contact: 'Contact', menu: 'Menu',
     privacyHref: 'privacy.html',
     disclaimer: 'whit is not a medical product and does not replace therapy or counselling.',
     personal: 'a personal project.',
-    langOther: 'DE', dec: '.',
+    langOther: 'ES', dec: '.',
 
     heroMeet: 'meet', heroWhit: 'whit.',
     heroSub: 'note how you feel and what you do.\nwhit shows you what does you good.',
@@ -181,6 +187,90 @@ export const STR = {
     ],
 
     ctaL: 'get', ctaR: 'whit.',
-    ctaP: 'Free and ad-free, in English and German.',
+    ctaP: 'Free and ad-free, in English, German and Spanish.',
+  },
+  // Spanish (neutral Latin American, tú). Nothing that describes the visitor
+  // may carry a gender (-o/-a): see lib/i18n/translations_es.dart.
+  es: {
+    title: 'whit – registro de ánimo y hábitos, gratis y privado',
+    play: 'Disponible en Google Play', playShort: 'Play Store',
+    privacy: 'Privacidad', del: 'Borrar datos', contact: 'Contacto', menu: 'Menú',
+    privacyHref: 'privacy.html',
+    disclaimer: 'whit no es un producto médico y no sustituye una terapia ni un asesoramiento profesional.',
+    personal: 'un proyecto personal.',
+    langOther: 'DE', dec: '.',
+
+    heroMeet: 'esto es', heroWhit: 'whit.',
+    heroSub: 'anota cómo te sientes y lo que haces.\nwhit te muestra qué te hace bien.',
+    heroChipMood: 'Ánimo', heroChipHabits: 'Hábitos', heroChipSync: 'Sync E2E', heroChipFree: 'Gratis · sin anuncios · privada',
+    heroMore: 'cómo funciona', heroTryTouch: 'toca donde quieras',
+    scroll: 'desliza',
+
+    chapters: ['registrar', 'contexto', 'cifrado', 'patrones', 'hábitos', 'para todos'],
+
+    jA: '¿cómo estás ahora?',
+    jB: '¿y alrededor?',
+    jC: 'solo tú puedes leerlo.',
+    steps: [
+      ['un control, una gota.', 'Sigue bajando: el control se mueve y la gota toma la forma y el color de tu ánimo. En la app lo deslizas tú.'],
+      ['siéntelo.', 'Calma, neutral o energía: la energía también mueve la gota.'],
+      ['una palabra.', 'De ambos sale una palabra, una de 21. Dice más que cualquier número.'],
+      ['tu sueño.', 'Por la mañana, whit pregunta cuánto y qué tan bien dormiste.'],
+      ['qué influyó.', 'Personas, lugares, clima: un toque por etiqueta. Luego whit te muestra cuáles te hacen bien.'],
+      ['una frase, si quieres.', 'Un toque en la nota. La frase se queda con ese día.'],
+      ['guardado.', 'En tu teléfono. Sin cuenta, ahí se queda.'],
+      ['sellado.', 'Con cuenta, cada whit se cifra de extremo a extremo: en tu teléfono, antes de subirlo.'],
+      ['lo que ve la nube.', 'Un ID aleatorio y una hora. El resto es ruido, para Google, el servidor y para mí.'],
+    ],
+    evening: ['tu movimiento.', 'Por la noche, whit pregunta cuánto te moviste y con qué intensidad.'],
+    morning: 'mañana', eveningL: 'noche',
+    compareHint: 'pasa el ratón por la tarjeta', compareHintTouch: 'desliza sobre la tarjeta',
+    moodTitle: '¿Cómo estás?', next: 'Siguiente', finish: 'Listo',
+    sleepPrompt: '¿Cómo dormiste?', activityPrompt: '¿Cuánto te moviste?',
+    qualityTitle: 'Calidad', intensity: 'Intensidad',
+    sleepL: ['< 6 h', '6–7 h', '7–8 h', '8–9 h', '9+ h'],
+    actL: ['0 min', '0–20 min', '20–60 min', '60–120 min', '> 120 min'],
+    tagsPrompt: '¿Qué pudo influir en tu ánimo?',
+    tagGroups: [['Personas', [['family', 'Familia'], ['people', 'Amistades'], ['heart', 'Pareja']]],
+      ['Lugares', [['home', 'Casa'], ['briefcase', 'Trabajo'], ['walk', 'Afuera']]],
+      ['Clima', [['sun', 'Sol'], ['rain', 'Lluvia']]]],
+    tagOn: [1, 4, 6],
+    note: 'Día muy productivo, por fin terminé la presentación. Solo la cafetera me abandonó.',
+    greeting: 'buenas noches',
+    exMood: 'siete niveles', exEnergy: 'tres energías', exWord: 'una palabra por mezcla',
+    energyL: ['calma', 'neutral', 'energía'],
+    hd: { streak: 'Racha', total: 'Días en total', record: 'Récord', activity: 'Actividad', mood: 'Ánimo', with: 'con', without: 'sin', goal: 'Meta semanal', perWeek: '3 × por semana', days: 'd' },
+    toTop: 'Volver arriba',
+    noteTitle: 'Nota',
+    saved: 'guardado',
+    cloudSees: 'lo que ve la nube',
+
+    pH: 'mira qué te hace bien.',
+    pSteps: [
+      ['sueño.', 'Los días con 8 horas de sueño o más, tu ánimo está un paso entero más arriba.'],
+      ['correr.', 'Un segundo patrón, por sí solo: cada whit pasa a ser parte de su día. Los días en que corriste destacan.'],
+      ['tu semana.', 'El sábado arriba, el miércoles abajo: tu ritmo de un vistazo.'],
+    ],
+    pFactors: [['moon', 'Sueño'], ['run', 'Correr'], ['calendar', 'Día']],
+    pLess: 'menos de 8 h', pMore: '8 h o más', pBest: 'los sábados',
+    days: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+
+    hH: 'márcalo deslizando.',
+    hSteps: [
+      ['hábitos pequeños.', 'Correr, agua, leer. Justo al lado de tu ánimo.'],
+      ['a la izquierda: hecho.', 'Un gesto y el día queda marcado. A la derecha se borra.'],
+      ['metas que sostienen.', 'El anillo muestra tu meta semanal. Y whit lo celebra contigo cuando la cumples.'],
+    ],
+    habits: [['run', 'Correr', 2, 3, 17], ['water', 'Agua', 2, 3, 25], ['book', 'Leer', 0, 0, 3]],
+    habitsTitle: 'Hábitos', streak: 'd de racha', goalDone: 'meta semanal cumplida',
+
+    fSteps: [
+      ['privada.', 'Funciona sin cuenta. Exporta y borra cuando quieras, con un toque.', 'lock', 'sin cuenta'],
+      ['sin anuncios.', 'Sin identificadores de publicidad, sin rastreadores, sin análisis de uso en la app.', 'view_off', 'nadie mira'],
+      ['gratis.', 'Un proyecto personal, sin inversores y sin un modelo de negocio que necesite tus datos.', 'heart', 'para siempre'],
+    ],
+
+    ctaL: 'consigue', ctaR: 'whit.',
+    ctaP: 'Gratis y sin anuncios, en español, inglés y alemán.',
   },
 };

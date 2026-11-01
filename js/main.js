@@ -21,7 +21,19 @@ const store = {
 
 // ?lang=en / ?theme=light make a shareable link; ?shot freezes motion for captures.
 const qp = new URLSearchParams(location.search);
-let lang = qp.get('lang') || store.get('whit.lang') || ((navigator.language || 'de').toLowerCase().startsWith('de') ? 'de' : 'en');
+const LANGS = ['de', 'en', 'es'];
+const known = (l) => (LANGS.includes(l) ? l : null);
+const browserLang = () => known((navigator.language || 'de').slice(0, 2).toLowerCase()) || 'en';
+// Published pages are one language each (/, /en/, /es/ — tool/build_site.py
+// stamps data-page and data-root), so search engines and AI crawlers find
+// every language at its own address. Opened raw (website/index.html), the
+// page still picks its language itself.
+const PAGE = known(document.documentElement.dataset.page);
+const ROOT = document.documentElement.dataset.root || '';
+const pageUrl = (l) => ROOT + (l === 'de' ? '' : l + '/');
+let lang = PAGE || known(qp.get('lang')) || known(store.get('whit.lang')) || browserLang();
+// The root page's one-time redirect to the visitor's language runs earlier,
+// in the head (tool/build_site.py), so no German frame flashes first.
 let dark = (qp.get('theme') || store.get('whit.theme') || 'dark') === 'dark';
 if (qp.has('shot')) document.documentElement.classList.add('shot');
 let L = STR[lang];
@@ -33,7 +45,7 @@ function applyCopy() {
   document.documentElement.lang = lang;
   document.title = L.title;
   document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = L[el.dataset.t]; });
-  document.querySelectorAll('[data-href]').forEach((el) => { el.href = L[el.dataset.href]; });
+  document.querySelectorAll('[data-href]').forEach((el) => { el.href = ROOT + L[el.dataset.href]; });
   document.querySelectorAll('.play-link').forEach((a) => (a.href = playUrl(a.dataset.from)));
   document.querySelectorAll('[data-icon]').forEach((el) => {
     if (!el.querySelector('svg')) el.insertAdjacentHTML('afterbegin', icon(el.dataset.icon, +el.dataset.size || 20));
@@ -68,7 +80,7 @@ const hero = new Hero(heroSec, { words: MOOD_WORDS[lang], onWord: setNow });
 requestAnimationFrame(() => setTimeout(() => heroSec.classList.add('on'), 450));
 
 const ctaSec = document.getElementById('sec-cta');
-const cta = new Hero(ctaSec, { words: MOOD_WORDS[lang], autoplay: false, onWord: (w) => { if (cta?.hover) cursor.setMood(w); } });
+const cta = new Hero(ctaSec, { words: MOOD_WORDS[lang], autoplay: false, fade: 'both', onWord: (w) => { if (cta?.hover) cursor.setMood(w); } });
 ctaSec.addEventListener('pointerenter', () => { cta.hover = true; if (cta.lastWord) cursor.setMood(cta.lastWord); });
 ctaSec.addEventListener('pointerleave', () => { cta.hover = false; if (hero.lastWord) cursor.setMood(hero.lastWord); });
 const ctaIO = new IntersectionObserver((en) => {
@@ -155,6 +167,7 @@ function setChapter(ch) {
 }
 
 const dock = document.querySelector('.dock');
+const faqSec = document.getElementById('faq');
 const gridBg = document.querySelector('.grid-bg');
 const toTop = document.querySelector('.to-top');
 toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
@@ -201,7 +214,12 @@ function frame(now) {
   header.classList.toggle('over-inv', inv);
   header.classList.toggle('scrolled', y > 40);
   // The dock carries the action between chapters, never over a caption.
-  dock.classList.toggle('on', !pinned && y > vh * 0.75 && y + vh < document.body.scrollHeight - 520);
+  // The FAQ came after the original end of the page: up to the CTA the old rule
+  // holds as if it weren't there, inside the FAQ the dock is back.
+  const end = document.body.scrollHeight - 520;
+  const faqH = faqSec ? faqSec.offsetHeight : 0;
+  const dockOn = y + vh < end - faqH || (faqSec && y >= faqSec.offsetTop - vh * 0.25 && y + vh < end);
+  dock.classList.toggle('on', !pinned && y > vh * 0.75 && dockOn);
 }
 requestAnimationFrame(frame);
 
@@ -209,15 +227,15 @@ requestAnimationFrame(frame);
 document.querySelector('.menu-btn').addEventListener('click', (e) => {
   const panel = showPeek(e.currentTarget, `
     <div class="menu-links">
-      <a href="${L.privacyHref}">${icon('lock', 20)}<span>${L.privacy}</span></a>
-      <a href="delete.html">${icon('delete', 20)}<span>${L.del}</span></a>
+      <a href="${ROOT + L.privacyHref}">${icon('lock', 20)}<span>${L.privacy}</span></a>
+      <a href="${ROOT}delete.html">${icon('delete', 20)}<span>${L.del}</span></a>
       <a href="mailto:gobi275@proton.me">${icon('mail', 20)}<span>${L.contact}</span></a>
     </div>
     <div class="menu-row">
-      <button type="button" class="chip glass" data-act="lang">${L.langOther}</button>
+      ${LANG_ORDER.filter((l) => l !== lang).map((l) => `<button type="button" class="chip glass" data-act="lang" data-lang="${l}" lang="${l}">${l.toUpperCase()}</button>`).join('')}
       <button type="button" class="circle glass" data-act="theme" aria-label="theme">${icon(dark ? 'sun' : 'moon', 18)}</button>
     </div>`, { width: 300, label: L.menu });
-  panel.querySelector('[data-act="lang"]').addEventListener('click', () => { closePeek(); toggleLang(); });
+  panel.querySelectorAll('[data-act="lang"]').forEach((b) => b.addEventListener('click', () => { closePeek(); setLang(b.dataset.lang); }));
   panel.querySelector('[data-act="theme"]').addEventListener('click', () => { closePeek(); setTheme(!dark); });
 });
 
@@ -243,9 +261,19 @@ document.querySelectorAll('.theme-toggle').forEach((b) => b.addEventListener('cl
 syncThemeToggle();
 
 // ── Language ──────────────────────────────────────────────────────────────
-function toggleLang() {
-  lang = lang === 'de' ? 'en' : 'de';
+// The chips offer every other language, most widely read first.
+const LANG_ORDER = ['en', 'de', 'es'];
+function syncLangChips() {
+  document.querySelectorAll('.lang-toggle').forEach((b) => { b.hidden = b.dataset.lang === lang; });
+}
+syncLangChips();
+function setLang(l) {
+  if (!known(l) || l === lang) return;
+  lang = l;
   store.set('whit.lang', lang);
+  // A published page is one language: the chip goes to that language's page.
+  if (PAGE) { location.href = pageUrl(lang) + location.search; return; }
+  syncLangChips();
   applyCopy();
   hero.setWords(MOOD_WORDS[lang]);
   cta.setWords(MOOD_WORDS[lang]);
@@ -254,6 +282,6 @@ function toggleLang() {
   shownCh = -2;
   layout();
 }
-document.querySelectorAll('.lang-toggle').forEach((b) => b.addEventListener('click', toggleLang));
+document.querySelectorAll('.lang-toggle').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
 export { Bold, themeFor };

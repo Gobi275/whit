@@ -7,11 +7,34 @@ import { moodColor, Curves } from './theme.js';
 import { glowTone } from './phone.js';
 import { blobPath, moodGradient, drawHalo } from './blob.js';
 
+/** Feathers the halo layer to nothing toward the given section edges
+ *  ('bottom' or 'both'), a smoothstep over the outer 22 % of the height. */
+function fadeEdges(hc, w, h, edges) {
+  const g = hc.createLinearGradient(0, 0, 0, h);
+  const F = 0.22, N = 6;
+  const ss = (t) => t * t * (3 - 2 * t);
+  for (let i = 0; i <= N; i++) {
+    const t = i / N;
+    if (edges === 'both') g.addColorStop(t * F, `rgba(0,0,0,${ss(t)})`);
+    g.addColorStop(1 - t * F, `rgba(0,0,0,${ss(t)})`);
+  }
+  if (edges !== 'both') g.addColorStop(0, '#000');
+  hc.save();
+  hc.setTransform(1, 0, 0, 1, 0, 0);
+  hc.globalCompositeOperation = 'destination-in';
+  hc.fillStyle = g;
+  hc.fillRect(0, 0, w, h);
+  hc.restore();
+}
+
 export class Hero {
-  constructor(section, { words, onWord, autoplay = true }) {
+  constructor(section, { words, onWord, autoplay = true, fade = 'bottom' }) {
     this.sec = section;
     this.canvas = section.querySelector('.hero-canvas');
     this.halo = document.createElement('canvas');
+    // Section edges the halo meets content at: it fades out there instead of
+    // ending in a hard line where the section's clip cuts it.
+    this.fade = fade;
     this.words = words;
     this.onWord = onWord;
     this.val = 0.78; this.en = 0.4;           // eased state (0..1 valence, −1..1 energy)
@@ -106,6 +129,7 @@ export class Hero {
       hc.clearRect(0, 0, this.halo.width, this.halo.height);
       hc.setTransform(0.25, 0, 0, 0.25, 0, 0);
       drawHalo(hc, this.cx, cy, size, score, glowTone(color), dark, ((now - this.t0) / 26000) % 1, this.en, 0.25);
+      fadeEdges(hc, this.halo.width, this.halo.height, this.fade);
       ctx.globalAlpha = intro;
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(this.halo, 0, 0, this.halo.width * 4 * this.dpr, this.halo.height * 4 * this.dpr);
