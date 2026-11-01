@@ -28,8 +28,8 @@ const browserLang = () => known((navigator.language || 'de').slice(0, 2).toLower
 // stamps data-page and data-root), so search engines and AI crawlers find
 // every language at its own address. Opened raw (website/index.html), the
 // page still picks its language itself.
-const PAGE = known(document.documentElement.dataset.page);
-const ROOT = document.documentElement.dataset.root || '';
+let PAGE = known(document.documentElement.dataset.page);
+let ROOT = document.documentElement.dataset.root || '';
 const pageUrl = (l) => ROOT + (l === 'de' ? '' : l + '/');
 let lang = PAGE || known(qp.get('lang')) || known(store.get('whit.lang')) || browserLang();
 // The root page's one-time redirect to the visitor's language runs earlier,
@@ -46,6 +46,7 @@ function applyCopy() {
   document.title = L.title;
   document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = L[el.dataset.t]; });
   document.querySelectorAll('[data-href]').forEach((el) => { el.href = ROOT + L[el.dataset.href]; });
+  document.querySelectorAll('[data-path]').forEach((el) => { el.href = ROOT + el.dataset.path; });
   document.querySelectorAll('.play-link').forEach((a) => (a.href = playUrl(a.dataset.from)));
   document.querySelectorAll('[data-icon]').forEach((el) => {
     if (!el.querySelector('svg')) el.insertAdjacentHTML('afterbegin', icon(el.dataset.icon, +el.dataset.size || 20));
@@ -167,7 +168,7 @@ function setChapter(ch) {
 }
 
 const dock = document.querySelector('.dock');
-const faqSec = document.getElementById('faq');
+let faqSec = document.getElementById('faq');
 const gridBg = document.querySelector('.grid-bg');
 const toTop = document.querySelector('.to-top');
 toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
@@ -267,12 +268,37 @@ function syncLangChips() {
   document.querySelectorAll('.lang-toggle').forEach((b) => { b.hidden = b.dataset.lang === lang; });
 }
 syncLangChips();
-function setLang(l) {
+// A published page is one language at its own address. Switching stays in
+// place like it always did (no reload, no jump to the top): the story is
+// rebuilt in the new language, the FAQ and the head's search metadata are
+// taken from that language's page, and the address follows.
+async function swapPage(l, push) {
+  const url = new URL(pageUrl(l), location.href);
+  const doc = new DOMParser().parseFromString(await (await fetch(url)).text(), 'text/html');
+  const fresh = doc.getElementById('faq');
+  if (!fresh) throw new Error('no faq');
+  for (const sel of ['meta[name="description"]', 'link[rel="canonical"]', 'meta[property="og:title"]', 'meta[property="og:description"]',
+    'meta[property="og:url"]', 'meta[property="og:locale"]', 'meta[property="og:image"]', 'script[type="application/ld+json"]']) {
+    const a = document.head.querySelector(sel), b = doc.head.querySelector(sel);
+    if (a && b) a.replaceWith(document.importNode(b, true));
+  }
+  if (push) history.pushState({ lang: l }, '', url.pathname + location.search);
+  PAGE = l;
+  ROOT = l === 'de' ? '' : '../';
+  document.documentElement.dataset.page = l;
+  if (ROOT) document.documentElement.dataset.root = ROOT; else delete document.documentElement.dataset.root;
+  document.getElementById('faq').replaceWith(document.importNode(fresh, true));
+  faqSec = document.getElementById('faq');
+  mountBentos();
+  window.goatcounter?.count?.({ path: url.pathname });
+}
+async function setLang(l, { push = true } = {}) {
   if (!known(l) || l === lang) return;
+  if (PAGE) {
+    try { await swapPage(l, push); } catch (_) { location.href = pageUrl(l) + location.search; return; }
+  }
   lang = l;
   store.set('whit.lang', lang);
-  // A published page is one language: the chip goes to that language's page.
-  if (PAGE) { location.href = pageUrl(lang) + location.search; return; }
   syncLangChips();
   applyCopy();
   hero.setWords(MOOD_WORDS[lang]);
@@ -283,5 +309,9 @@ function setLang(l) {
   layout();
 }
 document.querySelectorAll('.lang-toggle').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+// Back / forward between language pages: follow the address in place too.
+addEventListener('popstate', () => {
+  if (PAGE) setLang(known(location.pathname.match(/\/(en|es)\/?$/)?.[1]) || 'de', { push: false });
+});
 
 export { Bold, themeFor };
